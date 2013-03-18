@@ -14,12 +14,12 @@ end
 Допустим /^на первых "(.*?)" страницах пагинации выполнить действие "(.*?)"$/ do |arg1, arg2|
   current_page = PageObjectWrapper.current_page
   current_page.pagination_each( :limit => arg1.strip.to_i ){ |p|
-    p.send arg1.to_action
+    p.send arg2.to_action
   }
 
 end
 
-Допустим /^Перейти на "(.*?)" страницу пагинации$/ do |arg1|
+Допустим /^перейти на "(.*?)" страницу пагинации$/ do |arg1|
   current_page = PageObjectWrapper.current_page
   current_page.pagination_open arg1.strip.to_i
 end

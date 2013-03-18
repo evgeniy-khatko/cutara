@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'babosa'
 class String
-  SUPPORTED_LABEL_LANGUAGES = [:english,:bulgarian,:danish,:german,:greek,:macedonian,:norwegian,:romanian,:russian,:serbian,:spanish,:swedish,:ukrainian]
+  @supported_languages = [:english,:bulgarian,:danish,:german,:greek,:macedonian,:norwegian,:romanian,:russian,:serbian,:spanish,:swedish,:ukrainian]
   @@label_language = :russian
 
   def self.label_language=(l)
-    raise ArgumentError, "unsupported language, supported languages: #{SUPPORTED_LABEL_LANGUAGES.inspect}\nmore: https://github.com/norman/babosa.git"\
-    unless SUPPORTED_LABEL_LANGUAGES.include? l
+    raise ArgumentError, "unsupported language, supported languages: #{@supported_languages.inspect}\nmore: https://github.com/norman/babosa.git"\
+    unless @supported_languages.include? l
     @@label_language = l
   end
 
@@ -24,6 +24,10 @@ class String
   
   def to_action
     'fire_'+self.to_label
+  end
+
+  def to_validator
+    'validate_'+self.to_label
   end
 
   def to_input

@@ -2,10 +2,12 @@
 require 'page_object_wrapper'
 require 'StringHelper'
 require 'rspec/expectations'
+require 'ruby-debug' 
 World(RSpec::Matchers)
 
 PageObjectWrapper.load "./features/pages"
 PageObjectWrapper.use_browser Watir::Browser.new
+PageObjectWrapper.browser.driver.manage.window.maximize
 
 at_exit do
   PageObjectWrapper.browser.quit

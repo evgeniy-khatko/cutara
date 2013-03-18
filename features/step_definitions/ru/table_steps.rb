@@ -11,7 +11,7 @@ end
 
 def select_by_row_num(t_name, find_in, col_num)
   current_page = PageObjectWrapper.current_page
-  current_page.send t_name.to_select, find_in.to_label.to_sym, :row => col_num
+  current_page.send t_name.to_select, find_in.to_label.to_sym, :row => col_num.to_i
 end
 
 def select_by_col_name(t_name, find_in)
@@ -24,16 +24,16 @@ end
   complex_select(arg1, arg2, arg3, arg4)
 end
 
+Допустим /^в таблице "(.*?)" была выбрана ячейка колонки "(.*?)" с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3, arg4|
+  complex_select_regexp(arg1, arg2, arg3, arg4)
+end
+
 Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
   complex_select_regexp(arg1, arg2, arg2, arg3)
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
   complex_select(arg1, arg2, arg2, arg3)
-end
-
-Допустим /^в таблице "(.*?)" была выбрана ячейка колонки "(.*?)" с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  complex_select_regexp(arg1, arg2, arg3, arg4)
 end
 
 Допустим /^в таблице "(.*?)" был выбран элемент колонки "(.*?)"$/ do |arg1, arg2|

@@ -26,8 +26,8 @@ PageObjectWrapper.define_page(:some_test_page) do
     }
   end
 
-  action(:press_cool_button, :test_page_with_table) do
-    button(:name => 'foo').when_present.click
+  action(:press_cool_button) do 
+    button(:id => 'but').click
   end
 
   action(:fill_text_area) do |fill_with|
@@ -35,16 +35,16 @@ PageObjectWrapper.define_page(:some_test_page) do
     textarea(:id => 'f2').set data
   end
 
-  table(:table) do
+  action(:populate_text_field) do
+    text_field(:id => 'f1').set 'whible'
+  end
+
+  table(:countries) do
     locator :summary => 'Each row names a Nordic country and specifies its total area and land area, in square kilometers'
     header [:country, :total_area, :land_area]
   end
 
-  validator(:textarea_value) do |expected|
-    textarea(:id => 'f2').value == expected
-  end
-
-  pagination :some_pagination do
-    locator "link(:text => 2)", 2
-  end
+  validator(:znachenie_hedera) do
+    h1.text
+  end 
 end
