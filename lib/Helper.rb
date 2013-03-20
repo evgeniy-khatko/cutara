@@ -58,3 +58,18 @@ class String
     params
   end
 end
+
+class Dir
+  def recursive_each &block
+    self.each do |dir|
+      dirpath = self.path + '/' + dir
+      if File.directory?(dirpath) then
+        if dir != '.' && dir != '..' then
+          Dir.new(dirpath).recursive_each &block
+        end
+      else
+        block.call dirpath
+      end
+    end
+  end
+end

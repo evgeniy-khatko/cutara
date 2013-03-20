@@ -1,7 +1,7 @@
 # language: ru
 Функционал: тестовый
   Сценарий: открыть
-    Пусть страница "dynamic url page" открыта с параметрами "domain = www.google.com, path = advanced_search"
+    Допустим страница "dynamic url page" открыта с параметрами "domain = www.google.com, path = advanced_search"
     И открыта страница "some test page"
     И страницу "dynamic URL Page" открыть с параметрами "domain = google.com, path = advanced_search"
     И открыть страницу "some test page"

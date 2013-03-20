@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'page_object_wrapper'
-require 'StringHelper'
+require 'Helper'
 require 'rspec/expectations'
 require 'ruby-debug' 
 World(RSpec::Matchers)

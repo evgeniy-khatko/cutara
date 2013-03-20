@@ -14,6 +14,8 @@ Gem::Specification.new do |gem|
   gem.add_dependency "page_object_wrapper"
 	gem.add_dependency "babosa"
 	gem.add_dependency "cucumber"
+  gem.add_dependency "httparty"
+  gem.add_dependency "active_record"
 	gem.add_development_dependency "rspec", ">= 2.0.0"
 	gem.add_development_dependency "debugger"
 	gem.add_development_dependency "magic_encoding"
@@ -21,5 +23,5 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec)/})
-  gem.require_paths = ["lib", "features/pages"] 
+  gem.require_paths = ["lib", "features/pages", "tasks"] 
 end
