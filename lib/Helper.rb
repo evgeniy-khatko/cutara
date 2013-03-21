@@ -1,5 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'babosa'
+
+ROOT = Dir.pwd + "/features"
+PAGES = ROOT + "/pages"
+STEPS = ROOT + "/step_definitions"
+SUPPORT = ROOT + "/support"
+ASSETS = File.dirname(__FILE__)+"/../assets"
+
 class String
   @supported_languages = [:english,:bulgarian,:danish,:german,:greek,:macedonian,:norwegian,:romanian,:russian,:serbian,:spanish,:swedish,:ukrainian]
   @@label_language = :russian

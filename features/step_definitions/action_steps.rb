@@ -9,7 +9,6 @@ def run_action_with_args(action_name, params_string)
 end
 
 Допустим /^выполнено действие "(.*?)"$/ do |arg1|
-  puts self.inspect
   run_action arg1
 end
 

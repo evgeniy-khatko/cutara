@@ -1,0 +1,4 @@
+language: language of your specs # supported: [:english,:bulgarian,:danish,:german,:greek,:macedonian,:norwegian,:romanian,:russian,:serbian,:spanish,:swedish,:ukrainian]
+username: tarantula_admin_login
+password: tarantula_admin_password
+server: http://tarantula_host:port
