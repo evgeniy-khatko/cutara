@@ -1,8 +1,5 @@
 # -*- encoding : utf-8 -*-
 require 'babosa'
-require "rexml/document"
-include REXML
-include FileUtils::Verbose
 
 ROOT = Dir.pwd + "/features"
 PAGES = ROOT + "/pages"

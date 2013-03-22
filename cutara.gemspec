@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cutara/version'
+require 'version'
 
 Gem::Specification.new do |gem|
   gem.name          = "cutara"
@@ -17,12 +17,11 @@ Gem::Specification.new do |gem|
   gem.add_dependency "httparty"
   gem.add_dependency "activerecord"
   gem.add_dependency "rake"
-	gem.add_development_dependency "rspec", ">= 2.0.0"
 	gem.add_development_dependency "debugger"
 	gem.add_development_dependency "magic_encoding"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec)/})
-  gem.require_paths = ["lib", "tasks", "lib/cutara"] 
+  gem.require_paths = ["lib", "tasks", "generation"] 
 end

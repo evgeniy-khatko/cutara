@@ -1,7 +1,10 @@
 require 'TarantulaUpdater'
 require 'Helper'
+require "rexml/document"
+include REXML
+include FileUtils::Verbose
 
-@lang = YAML.load(File.open(SUPPORT+"/tarantula.yml"))["language"]
+@lang = YAML.load(File.open(SUPPORT+"/tarantula.yml"))["language"] if File.exist? SUPPORT+'/tarantula.yml'
 namespace "cutara" do
   desc "Builds cucumber project"
   task :build, [:project, :testcase, :execution] => :download do

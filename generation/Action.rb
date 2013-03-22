@@ -3,7 +3,7 @@ require 'PageElement'
 class Action < PageElement
   attr_accessor :params
 
-  def initialize label, params
+  def initialize label, params=nil
     super label
     @params = params
   end

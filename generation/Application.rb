@@ -8,11 +8,14 @@ require 'Validator'
 require 'Pagination'
 
 class Application
-  attr_accessor :pages, :current_page
+  attr_accessor :current_page
   
   def initialize
-    @pages = []
     @current_page = nil
+  end
+
+  def pages
+    Page.pages
   end
 
   def add_page label
@@ -22,48 +25,49 @@ class Application
   end
 
   def add_action label, params=nil
-    a = Page.find_action(label) || Action.new(label)
+    a = @current_page.find_action(label) || Action.new(label, params)
     (@current_page.actions << a).uniq!
   end
 
   def add_menu label
-    @current_page.inputs.each{ |i| i.menus << label }
-    @current_page.esets.each{ |e| e.menus << label }
+    @current_page.inputs.each{ |i| i.menus << label; i.menus.uniq! }
+    @current_page.esets.each{ |e| e.menus << label; e.menus.uniq! }
   end
 
   def add_eset label, menu
-    eset = Page.find_eset(label) || Eset.new(label)
+    eset = @current_page.find_eset(label) || Eset.new(label)
     eset.menus << menu
     (@current_page.esets << eset).uniq!
   end
 
   def add_input label
-    i = Page.find_input(label) || Input.new(label)
+    i = @current_page.find_input(label) || Input.new(label)
     (@current_page.inputs << i).uniq!
   end
 
   def add_link label
-    c = Page.find_clickable(label, :link) || Clickable.new(label, :link)
+    c = @current_page.find_clickable(label, :link) || Clickable.new(label, :link)
     (@current_page.clickables << c).uniq!
   end
 
   def add_button label
-    c = Page.find_clickable(label, :button) || Clickable.new(label, :button)
+    c = @current_page.find_clickable(label, :button) || Clickable.new(label, :button)
     (@current_page.clickables << c).uniq!
   end
 
   def add_element label
-    c = Page.find_clickable(label, :element) || Clickable.new(label, :element)
+    c = @current_page.find_clickable(label, :element) || Clickable.new(label, :element)
     (@current_page.clickables << c).uniq!
   end
 
   def add_table label
-    t = Page.find_table(label) || Table.new(label)
+    t = @current_page.find_table(label) || Table.new(label)
     (@current_page.tables << t).uniq!
+    t
   end
 
   def add_validator label
-    v = Page.find_validator(label) || Validator.new(label)
+    v = @current_page.find_validator(label) || Validator.new(label)
     (@current_page.validators << v).uniq!
   end
 

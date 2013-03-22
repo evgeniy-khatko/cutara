@@ -12,6 +12,11 @@ PageObjectWrapper.define_page(:some_test_page) do
     press_action :click
   end
 
+  link :some_link do
+    locator :name => 'foo'
+  end
+
+
   elements_set(:test_elements) do
 
     textarea(:ta) do

@@ -6,7 +6,7 @@ require 'ruby-debug'
 require 'Application'
 World(RSpec::Matchers)
 
-PageObjectWrapper.load "./features/pages"
+PageObjectWrapper.load File.dirname(__FILE__)+"/../pages"
 PageObjectWrapper.use_browser Watir::Browser.new
 PageObjectWrapper.browser.driver.manage.window.maximize
 @app = Application.new

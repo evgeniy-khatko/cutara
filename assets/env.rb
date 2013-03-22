@@ -2,8 +2,6 @@
 require 'page_object_wrapper'
 require 'Helper'
 require 'rspec/expectations'
-require 'ruby-debug' 
-require 'Application'
 World(RSpec::Matchers)
 
 PageObjectWrapper.load "./features/pages"

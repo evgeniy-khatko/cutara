@@ -7,8 +7,8 @@ def feed_set(set_name, menu_name=nil)
   PageObjectWrapper.current_page.send set_name.to_input, menu_name.to_label.to_sym
 end
 
-def feed_field(field_name, menu_name=nil)
-  PageObjectWrapper.current_page.send field_name.to_input, menu_name.to_label.to_sym
+def feed_field(field_name, value=nil)
+  PageObjectWrapper.current_page.send field_name.to_input, value
 end
 
 Пусть /^на странице введены данные типа "(.*?)"$/ do |arg1|
