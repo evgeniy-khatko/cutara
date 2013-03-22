@@ -9,7 +9,6 @@ World(RSpec::Matchers)
 PageObjectWrapper.load "./features/pages"
 PageObjectWrapper.use_browser Watir::Browser.new
 PageObjectWrapper.browser.driver.manage.window.maximize
-@app = Application.new
 
 at_exit do
   PageObjectWrapper.browser.quit

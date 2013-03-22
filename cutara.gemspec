@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
 	gem.add_dependency "cucumber"
   gem.add_dependency "httparty"
   gem.add_dependency "activerecord"
+  gem.add_dependency "rake"
 	gem.add_development_dependency "rspec", ">= 2.0.0"
 	gem.add_development_dependency "debugger"
 	gem.add_development_dependency "magic_encoding"

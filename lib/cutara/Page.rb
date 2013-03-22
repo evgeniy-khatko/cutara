@@ -1,3 +1,5 @@
+require 'PageElement'
+
 class Page < PageElement
   attr_accessor :label, :actions, :esets, :inputs, :clickables, :tables, :pagination, :validators
   @@pages = []
@@ -29,6 +31,10 @@ class Page < PageElement
   end
 
 private 
+
+  def self.find_page label
+    @@pages.select{|e| e.label == label}.first
+  end
 
   def self.find_action label
     @actions.select{|e| e.label == label}.first

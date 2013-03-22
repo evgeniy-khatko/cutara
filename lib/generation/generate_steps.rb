@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'Application'
+@app = Application.new
 
 # open_steps
 Допустим /^открыта страница "(.*?)"$/ do |arg1|

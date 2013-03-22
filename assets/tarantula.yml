@@ -1,4 +1,4 @@
-language: language of your specs # supported: [:english,:bulgarian,:danish,:german,:greek,:macedonian,:norwegian,:romanian,:russian,:serbian,:spanish,:swedish,:ukrainian]
+language: language_of_your_specs # supported: [:en,:ru], please do pull request for other langs
 username: tarantula_admin_login
 password: tarantula_admin_password
-server: http://tarantula_host:port
+server: http://localhost:8080
