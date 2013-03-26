@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 require 'Application'
 require 'Helper'
-module Generator
-  @app = Application.new
+module Cutara
+  APP = Application.new
 end
 
-World{ Generator }
+World{ Cutara }
 
 at_exit do
-  @app.pages.each{ |p| 
+  Cutara::APP.pages.each{ |p| 
     file_name = "#{ROOT}/pages/#{p.label.to_s}.rb"
     raise "directory #{ROOT}/pages not found, run rake cutara:build first" unless File.exist? "#{ROOT}/pages"
     data = p.to_snippet

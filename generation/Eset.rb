@@ -1,16 +1,18 @@
 require 'PageElement'
-class Eset < PageElement
-  attr_accessor :menus
-  def initialize label
-    super label
-    @menus = []
-  end
+module Cutara
+  class Eset < PageElement
+    attr_accessor :menus
+    def initialize label
+      super label
+      @menus = []
+    end
 
-  def to_snippet
-    out = "\telements_set #{@label.inspect} do\n"
-    @menus.each{|menu|
-      out += "\t\tmenu #{menu.inspect}\n"
-    }
-    out += "\tend\n\n"
+    def to_snippet
+      out = "\telements_set #{@label.inspect} do\n"
+      @menus.each{|menu|
+        out += "\t\tmenu #{menu.inspect}\n"
+      }
+      out += "\tend\n\n"
+    end
   end
 end

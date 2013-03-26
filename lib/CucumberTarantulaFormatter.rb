@@ -8,13 +8,20 @@ require 'Helper'
 
 module Cucumber
   module Formatter
-    # The formatter used for <tt>--format pretty</tt> (the default formatter).
-    #
     # This formatter prints features to plain text - exactly how they were parsed,
     # just prettier. That means with proper indentation and alignment of table columns.
+    # it also updates Tarantula step results
     #
     # If the output is STDOUT (and not a file), there are bright colours to watch too.
     #
+    module Duration
+      # Helper method for formatters that need to
+      # format a duration in seconds to the UNIX
+      # <tt>time</tt> format.
+      def format_duration_simple(seconds)
+        seconds
+      end
+    end
     class CustomTarantulaFormatter
       include FileUtils
       include Console
@@ -30,14 +37,18 @@ module Cucumber
         @prefixes = options[:prefixes] || {}
         @delayed_messages = []
         @feature_name = nil
-        @scenario_index = -1
-        @scenario_exceptions = nil
-        @scenario_undefined = nil
+        @scenario_index = 0
+        @scenario_exceptions = []
+        @scenario_undefined = false
+        @scenario_updated = false
         TarantulaUpdater.config = YAML.load(File.open(SUPPORT+"/tarantula.yml"))
       end
 
       def after_features(features)
         print_summary(features) unless @options[:autoformat]
+        @io.puts(format_duration_simple(features.duration)) if features && features.duration
+        resp = TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
+        @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
       end
 
       def before_feature(feature)
@@ -225,19 +236,25 @@ module Cucumber
       end
 
       def after_steps(steps)
-        unless @in_background
-          result = "PASSED"
-          message = ''
-          if not @scenario_exceptions.empty?
-            result = "FAILED"
-            message = @scenario_exceptions.inspect
-          elsif @scenario_undefined
-            result = "NOT_IMPL"
-            message = "Undefined cucumber sentences found inside step"
-          end
-          resp = TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, @scenario_index, result, message)
-          puts ">>>>>>>>>>>>>>>" + resp.to_s
+        return if @scenario_updated
+        result = "PASSED"
+        message = ''
+        position = @scenario_index
+        if not @scenario_exceptions.empty?
+          result = "FAILED"
+          message = @scenario_exceptions.inspect
+          @scenario_updated = true
+        elsif @scenario_undefined
+          result = "NOT_IMPL"
+          message = "Undefined cucumber sentence found"
+          @scenario_updated = true
         end
+        if @in_background
+          message += " !INSIDE BACKGROUND!"
+          position = 1
+        end
+        resp = TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, position, result, message)
+        @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
       end
 
       private

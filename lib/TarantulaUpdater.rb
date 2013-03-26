@@ -6,7 +6,7 @@ class TarantulaUpdater
   include HTTParty
 
   @config = nil
-  debug_output $stdout
+  # debug_output $stdout
   headers  'Content-type' => 'application/xml', 'Accept' => 'application/xml' 
 
   def self.config= hash
@@ -31,7 +31,7 @@ class TarantulaUpdater
         :testcase => testcase,
         :position => step_position,
         :result => result,
-        :comment => comment
+        :comment => comment,
       }.to_xml(:skip_types => true, :root => "request")
 
     params = { 
@@ -39,6 +39,23 @@ class TarantulaUpdater
       :body => body
     }
     response = self.post(@config["server"]+'/api/update_testcase_step', params)
+    raise response.body unless response.code == 200
+    response
+  end
+
+  def self.update_testcase_duration(project, execution, testcase, duration)
+    body = {      
+        :project => project,
+        :execution => execution,
+        :testcase => testcase,
+        :duration => duration
+      }.to_xml(:skip_types => true, :root => "request")
+
+    params = { 
+      :basic_auth => { :username => @config["username"], :password => @config["password"] },
+      :body => body
+    }
+    response = self.post(@config["server"]+'/api/update_testcase_duration', params)
     raise response.body unless response.code == 200
     response
   end
