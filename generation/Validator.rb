@@ -1,5 +1,6 @@
-require 'PageElement'
+require 'cutara'
 module Cutara
+require GENERATION + 'PageElement'
   class Validator < PageElement
     def initialize label
       super label

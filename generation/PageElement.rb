@@ -1,3 +1,4 @@
+require 'cutara'
 module Cutara
   class PageElement
     attr_accessor :label

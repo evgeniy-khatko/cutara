@@ -1,13 +1,12 @@
-require 'Page'
-require 'Action'
-require 'Eset'
-require 'Input'
-require 'Clickable'
-require 'Table'
-require 'Validator'
-require 'Pagination'
-
+require 'cutara'
 module Cutara
+require GENERATION + 'Page'
+require GENERATION + 'Action'
+require GENERATION + 'Eset'
+require GENERATION + 'Input'
+require GENERATION + 'Clickable'
+require GENERATION + 'Table'
+require GENERATION + 'Validator'
 
   class Application
     attr_accessor :current_page

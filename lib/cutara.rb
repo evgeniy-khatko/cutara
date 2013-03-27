@@ -1,11 +1,13 @@
 # -*- encoding : utf-8 -*-
 require 'babosa'
-
-ROOT = Dir.pwd + "/features"
-PAGES = ROOT + "/pages"
-STEPS = ROOT + "/step_definitions"
-SUPPORT = ROOT + "/support"
-ASSETS = File.dirname(__FILE__)+"/../assets"
+module Cutara
+  ROOT = Dir.pwd + "/features"
+  PAGES = ROOT + "/pages"
+  STEPS = ROOT + "/step_definitions"
+  SUPPORT = ROOT + "/support"
+  ASSETS = File.dirname(__FILE__)+"/../assets"
+  GENERATION = File.dirname(__FILE__)+"/../generation/"
+end
 
 class String
   @supported_languages = [:english,:bulgarian,:danish,:german,:greek,:macedonian,:norwegian,:romanian,:russian,:serbian,:spanish,:swedish,:ukrainian]

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-require 'Application'
 include Cutara
+require GENERATION + 'Application'
 
 # open_steps
 Допустим /^открыта страница "(.*?)"$/ do |arg1|

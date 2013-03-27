@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'page_object_wrapper'
-require 'Helper'
+require 'cutara'
 require 'rspec/expectations'
 World(RSpec::Matchers)
 

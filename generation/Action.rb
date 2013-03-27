@@ -1,6 +1,6 @@
-require 'PageElement'
-
+require 'cutara'
 module Cutara
+require GENERATION + 'PageElement'
   class Action < PageElement
     attr_accessor :params
 

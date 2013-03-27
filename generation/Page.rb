@@ -1,5 +1,6 @@
-require 'PageElement'
+require 'cutara'
 module Cutara
+require GENERATION + 'PageElement'
   class Page < PageElement
     attr_accessor :label, :actions, :esets, :inputs, :clickables, :tables, :pagination, :validators
     @@pages = []

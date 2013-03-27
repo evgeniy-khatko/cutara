@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
-require 'Application'
-require 'Helper'
+require 'cutara'
+require Cutara::GENERATION + 'Application'
 module Cutara
-  APP = Application.new
+  APP = Application.new unless const_defined?(:APP)
 end
 
 World{ Cutara }

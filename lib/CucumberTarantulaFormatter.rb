@@ -4,7 +4,7 @@ require 'cucumber/formatter/console'
 require 'cucumber/formatter/io'
 require 'gherkin/formatter/escaping'
 require 'TarantulaUpdater'
-require 'Helper'
+require 'cutara'
 
 module Cucumber
   module Formatter
@@ -41,13 +41,13 @@ module Cucumber
         @scenario_exceptions = []
         @scenario_undefined = false
         @scenario_updated = false
-        TarantulaUpdater.config = YAML.load(File.open(SUPPORT+"/tarantula.yml"))
+        Cutara::TarantulaUpdater.config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
       end
 
       def after_features(features)
         print_summary(features) unless @options[:autoformat]
         @io.puts(format_duration_simple(features.duration)) if features && features.duration
-        resp = TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
+        resp = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
         @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
       end
 
@@ -253,7 +253,7 @@ module Cucumber
           message += " !INSIDE BACKGROUND!"
           position = 1
         end
-        resp = TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, position, result, message)
+        resp = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, position, result, message)
         @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
       end
 

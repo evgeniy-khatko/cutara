@@ -1,5 +1,6 @@
-require 'PageElement'
+require 'cutara'
 module Cutara
+require GENERATION + 'PageElement'
   class Clickable < PageElement
     attr_accessor :type
     def initialize label, type

@@ -1,5 +1,6 @@
-require 'PageElement'
+require 'cutara'
 module Cutara
+require GENERATION + 'PageElement'
   class Input < PageElement
     attr_accessor :menus
     def initialize label

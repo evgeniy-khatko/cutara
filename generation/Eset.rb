@@ -1,5 +1,6 @@
-require 'PageElement'
-module Cutara
+require 'cutara'
+include Cutara
+require GENERATION + 'PageElement'
   class Eset < PageElement
     attr_accessor :menus
     def initialize label
@@ -15,4 +16,3 @@ module Cutara
       out += "\tend\n\n"
     end
   end
-end
