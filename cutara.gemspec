@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "activerecord"
   gem.add_dependency "activesupport"
   gem.add_dependency "rake"
+  gem.add_dependency "bundler"
 	gem.add_development_dependency "debugger"
 	gem.add_development_dependency "magic_encoding"
 
