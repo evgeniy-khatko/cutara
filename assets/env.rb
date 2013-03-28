@@ -4,7 +4,7 @@ require 'cutara'
 require 'rspec/expectations'
 World(RSpec::Matchers)
 
-PageObjectWrapper.load "./features/pages"
+PageObjectWrapper.load "#{Dir.pwd}/features/pages"
 PageObjectWrapper.use_browser Watir::Browser.new
 PageObjectWrapper.browser.driver.manage.window.maximize
 
