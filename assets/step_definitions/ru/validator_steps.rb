@@ -32,6 +32,10 @@ end
   PageObjectWrapper.current_page? arg1.to_label.to_sym
 end
 
+Тогда(/^открывается диалог "(.*?)"$/) do |arg1|
+  PageObjectWrapper.current_page? arg1.to_label.to_sym
+end
+
 Тогда(/^проверка "(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
   current_page = PageObjectWrapper.current_page
   res = current_page.send arg1.to_validator

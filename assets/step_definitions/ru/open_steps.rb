@@ -13,6 +13,10 @@ end
   open_page(arg1)
 end
 
+Допустим /^открыт диалог "(.*?)"$/ do |arg1|
+  open_page(arg1)
+end
+
 Допустим /^страница "(.*?)" открыта с параметрами "(.*?)"$/ do |arg1, arg2|
   open_page_with_params(arg1, arg2)
 end
