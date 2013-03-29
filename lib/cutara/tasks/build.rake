@@ -10,7 +10,7 @@ namespace "cutara" do
     mkdir_p(Cutara::PAGES) unless File.exists?(Cutara::PAGES)
     mkdir_p(Cutara::STEPS) unless File.exists?(Cutara::STEPS)
     cp "#{Cutara::ASSETS}/env.rb", Cutara::SUPPORT unless File.exists? "#{Cutara::SUPPORT}/env.rb"
-    steps_source = Cutara::ASSETS + "/step_definitions/" + @lang
+    steps_source = Cutara::ASSETS + "/step_definitions/" + @lang.to_s
     Dir.glob("#{steps_source}/*") {|f| cp File.expand_path(f), Cutara::STEPS }
   end
 
