@@ -67,8 +67,8 @@ require GENERATION + 'Validator'
       t
     end
 
-    def add_validator label
-      v = @current_page.find_validator(label) || Validator.new(label)
+    def add_validator label, params=nil
+      v = @current_page.find_validator(label) || Validator.new(label, params)
       (@current_page.validators << v).uniq!
     end
 

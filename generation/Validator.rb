@@ -1,13 +1,14 @@
 require 'cutara'
 module Cutara
 require GENERATION + 'PageElement'
-  class Validator < PageElement
-    def initialize label
-      super label
-    end
-
+require GENERATION + 'Action'
+  class Validator < Action
     def to_snippet
-      "\tvalidator #{@label.inspect} do \n\tend\n\n"
+      if @params
+        return "\tvalidator #{@label.inspect} do |#{params.join(", ")}| \n\tend\n\n"
+      else
+        return "\tvalidator #{@label.inspect} do \n\tend\n\n"
+      end
     end
   end
 end

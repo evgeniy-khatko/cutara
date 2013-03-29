@@ -218,6 +218,6 @@ end
   rescue
     raise Cutara::ParseError, "inside params #{arg2}"
   end
-  APP.add_action arg1.to_label.to_sym, args
+  APP.add_validator arg1.to_label.to_sym, args
 end
 
