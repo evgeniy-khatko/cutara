@@ -66,7 +66,7 @@ class String
     params = {}
     begin
       self.split(",").collect(&:strip).sort.each{|p|
-        params[p.split("=")[0].strip.to_label] = p.split("=")[1].strip
+        params[p.split("=")[0].strip.to_label.to_sym] = p.split("=")[1].strip
       }
     rescue
       raise Cutara::ParseError, "inside params: #{self}"

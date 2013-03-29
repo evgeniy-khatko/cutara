@@ -11,15 +11,15 @@ def feed_field(field_name, value=nil)
   PageObjectWrapper.current_page.send field_name.to_input, value
 end
 
-Пусть /^на странице введены данные типа "(.*?)"$/ do |arg1|
+Пусть /^на странице введены "(.*?)"$/ do |arg1|
   feed_page(arg1)
 end
 
-Пусть /^в набор элементов "(.*?)" введены данные типа "(.*?)"$/ do |arg1, arg2|
+Пусть /^в набор элементов "(.*?)" введены "(.*?)"$/ do |arg1, arg2|
   feed_set(arg1, arg2)
 end
 
-Пусть /^на форме "(.*?)" введены данные типа "(.*?)"$/ do |arg1, arg2|
+Пусть /^на форме "(.*?)" введены "(.*?)"$/ do |arg1, arg2|
   feed_set(arg1, arg2)
 end
 
@@ -27,15 +27,15 @@ end
   feed_field(arg1, arg2)
 end
 
-Если /^на странице ввести данные типа "(.*?)"$/ do |arg1|
+Если /^на странице ввести "(.*?)"$/ do |arg1|
   feed_page(arg1)
 end
 
-Если /^в набор элементов "(.*?)" ввести данные типа "(.*?)"$/ do |arg1, arg2|
+Если /^в набор элементов "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   feed_set(arg1, arg2)
 end
 
-Если /^на форме "(.*?)" ввести данные типа "(.*?)"$/ do |arg1, arg2|
+Если /^на форме "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   feed_set(arg1, arg2)
 end
 

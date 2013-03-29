@@ -1,5 +1,7 @@
 require 'rake'
 require "bundler/gem_tasks"
+import "lib/cutara/tasks/known.rake"
+
 
 task :default => [:test]
 

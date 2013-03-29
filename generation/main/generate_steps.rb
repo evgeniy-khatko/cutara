@@ -44,15 +44,15 @@ end
 end
 
 # data_input_steps
-Пусть /^на странице введены данные типа "(.*?)"$/ do |arg1|
+Пусть /^на странице введены "(.*?)"$/ do |arg1|
   APP.add_menu arg1.to_label.to_sym
 end
 
-Пусть /^в набор элементов "(.*?)" введены данные типа "(.*?)"$/ do |arg1, arg2|
+Пусть /^в набор элементов "(.*?)" введены "(.*?)"$/ do |arg1, arg2|
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
-Пусть /^на форме "(.*?)" введены данные типа "(.*?)"$/ do |arg1, arg2|
+Пусть /^на форме "(.*?)" введены "(.*?)"$/ do |arg1, arg2|
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
@@ -60,15 +60,15 @@ end
   APP.add_input arg1.to_label.to_sym
 end
 
-Если /^на странице ввести данные типа "(.*?)"$/ do |arg1|
+Если /^на странице ввести "(.*?)"$/ do |arg1|
   APP.add_menu arg1.to_label.to_sym
 end
 
-Если /^в набор элементов "(.*?)" ввести данные типа "(.*?)"$/ do |arg1, arg2|
+Если /^в набор элементов "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
-Если /^на форме "(.*?)" ввести данные типа "(.*?)"$/ do |arg1, arg2|
+Если /^на форме "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
