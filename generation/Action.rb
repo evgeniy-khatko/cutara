@@ -11,9 +11,9 @@ require GENERATION + 'PageElement'
 
     def to_snippet
       if @params
-        return "\taction #{@label.inspect} do |#{params.join(", ")}|\n\tend\n\n"
+        return "\taction #{@label.inspect} do |#{params.join(", ")}| \n\tend\n\n"
       else
-        return "\taction #{@label.inspect} do\n\tend\n\n"
+        return "\taction #{@label.inspect} do \n\tend\n\n"
       end
     end
   end

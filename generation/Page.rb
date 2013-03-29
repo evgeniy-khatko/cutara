@@ -21,14 +21,14 @@ require GENERATION + 'PageElement'
     end
 
     def to_snippet
-      out = "PageObjectWrapper.define_page #{@label.inspect} do\n\tlocator\n"
+      out = "PageObjectWrapper.define_page #{@label.inspect} do\n\tlocator \"\" \n"
       @clickables.each{ |e| out += e.to_snippet }
       @inputs.each{ |e| out += e.to_snippet }
       @esets.each{ |e| out += e.to_snippet }
       @tables.each{ |e| out += e.to_snippet }
       @actions.each{ |e| out += e.to_snippet }
       @validators.each{ |e| out += e.to_snippet }
-      out += "\tpagination :pagination do\n\tend\n" if @pagination
+      out += "\tpagination :pagination do \n\tend\n" if @pagination
       out += "end"
     end
 

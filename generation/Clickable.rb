@@ -9,7 +9,7 @@ require GENERATION + 'PageElement'
     end
 
     def to_snippet
-      "\t#{@type} #{@label.inspect} do\n\t\tlocator\n\tend\n\n"
+      "\t#{@type} #{@label.inspect} do\n\t\tlocator \n\tend\n\n"
     end
   end
 end

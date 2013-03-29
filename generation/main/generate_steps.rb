@@ -19,6 +19,11 @@ end
   APP.add_page arg1.to_label.to_sym
 end
 
+Допустим(/^открыт диалог "(.*?)"$/) do |arg1|
+  APP.add_page arg1.to_label.to_sym
+end
+
+
 # action_steps
 Допустим /^выполнено действие "(.*?)"$/ do |arg1|
   APP.add_action arg1.to_label.to_sym
@@ -201,5 +206,14 @@ end
 Тогда(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" похожим на "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
   t = APP.add_table arg2.to_label.to_sym
   t.add_column arg1.to_label.to_sym
+end
+
+Тогда(/^открывается диалог "(.*?)"$/) do |arg1|
+  APP.add_page arg1.to_label.to_sym
+end
+
+Тогда(/^выполнение проверки "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
+  args = arg2.split(",").collect(&:to_label)
+  APP.add_action arg1.to_label.to_sym, args
 end
 

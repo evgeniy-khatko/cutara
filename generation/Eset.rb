@@ -9,9 +9,9 @@ require GENERATION + 'PageElement'
     end
 
     def to_snippet
-      out = "\telements_set #{@label.inspect} do\n"
+      out = "\telements_set #{@label.inspect} do \n"
       @menus.each{|menu|
-        out += "\t\tmenu #{menu.inspect}\n"
+        out += "\t\tmenu #{menu.inspect} \n"
       }
       out += "\tend\n\n"
     end

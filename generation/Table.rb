@@ -10,8 +10,8 @@ require GENERATION + 'PageElement'
 
     def to_snippet
       out = ""
-      out += "\ttable #{@label.inspect} do\n\t\tlocator\n"
-      out += "\t\theader #{@columns.inspect}\n"
+      out += "\ttable #{@label.inspect} do \n\t\tlocator \n"
+      out += "\t\theader #{@columns.inspect} \n"
       out += "\tend\n\n"
     end
 

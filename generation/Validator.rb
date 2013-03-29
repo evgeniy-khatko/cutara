@@ -7,7 +7,7 @@ require GENERATION + 'PageElement'
     end
 
     def to_snippet
-      "\tvalidator #{@label.inspect} do\n\tend\n\n"
+      "\tvalidator #{@label.inspect} do \n\tend\n\n"
     end
   end
 end
