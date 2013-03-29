@@ -7,7 +7,6 @@ include FileUtils::Verbose
 namespace "cutara" do
   desc "Builds cucumber project"
   task :build, [:project, :testcase, :execution] => :download do
-    rm Dir.glob(Cutara::ROOT+'/*.feature'), :force => true   
     mkdir_p(Cutara::PAGES) unless File.exists?(Cutara::PAGES)
     mkdir_p(Cutara::STEPS) unless File.exists?(Cutara::STEPS)
     cp "#{Cutara::ASSETS}/env.rb", Cutara::SUPPORT unless File.exists? "#{Cutara::SUPPORT}/env.rb"
@@ -18,7 +17,7 @@ namespace "cutara" do
   desc "Downloads cucumber scenarios from tarantula"
   task :download, :project, :testcase, :execution do |t, args|
     raise "arguments: [project*,testcase,execution]" if args.empty?
-
+    rm Dir.glob(Cutara::ROOT+'/*.feature'), :force => true   
     unless File.exist?(Cutara::SUPPORT+"/tarantula.yml")
       mkdir_p(Cutara::SUPPORT) unless File.exists?(Cutara::SUPPORT) # including ROOT dir
       cp "#{Cutara::ASSETS}/tarantula.yml", Cutara::SUPPORT
