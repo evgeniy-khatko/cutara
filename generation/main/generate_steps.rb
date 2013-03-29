@@ -213,7 +213,11 @@ end
 end
 
 Тогда(/^выполнение проверки "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
-  args = arg2.split(",").collect(&:to_label)
+  begin
+    args = arg2.split(",").collect(&:to_label)
+  rescue
+    raise Cutara::ParseError, "inside params #{arg2}"
+  end
   APP.add_action arg1.to_label.to_sym, args
 end
 

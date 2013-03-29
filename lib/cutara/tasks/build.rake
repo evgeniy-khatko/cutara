@@ -7,6 +7,7 @@ include FileUtils::Verbose
 namespace "cutara" do
   desc "Builds cucumber project"
   task :build, [:project, :testcase, :execution] => :download do
+    rm Dir.glob(Cutara::ROOT+'/*.feature'), :force => true   
     mkdir_p(Cutara::PAGES) unless File.exists?(Cutara::PAGES)
     mkdir_p(Cutara::STEPS) unless File.exists?(Cutara::STEPS)
     cp "#{Cutara::ASSETS}/env.rb", Cutara::SUPPORT unless File.exists? "#{Cutara::SUPPORT}/env.rb"
@@ -21,7 +22,7 @@ namespace "cutara" do
     unless File.exist?(Cutara::SUPPORT+"/tarantula.yml")
       mkdir_p(Cutara::SUPPORT) unless File.exists?(Cutara::SUPPORT) # including ROOT dir
       cp "#{Cutara::ASSETS}/tarantula.yml", Cutara::SUPPORT
-      raise "Please update #{Cutara::SUPPORT}/tarantula.yml and rerun the task"
+      raise ">>>>>>>>>>> Please update #{Cutara::SUPPORT}/tarantula.yml and rerun the task <<<<<<<<<<<<"
     end
     Cutara::TarantulaUpdater.config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
     query = {}
@@ -32,7 +33,7 @@ namespace "cutara" do
       title = test.elements['title'].text
       body = test.elements['body'].text
       file = File.new(Cutara::ROOT+"/#{title.to_label}.feature", "w+")
-      file.puts "# language: #{@lang}"
+      file.puts "# language: #{@lang.to_s}"
       file.puts body
       file.close
     end

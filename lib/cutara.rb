@@ -7,6 +7,9 @@ module Cutara
   SUPPORT = ROOT + "/support"
   ASSETS = File.dirname(__FILE__)+"/../assets"
   GENERATION = File.dirname(__FILE__)+"/../generation/"
+
+  class ExecutionStepError < StandardError; end
+  class ParseError < StandardError; end
 end
 
 class String
@@ -61,9 +64,13 @@ class String
 
   def to_params
     params = {}
-    self.split(",").collect(&:strip).sort.each{|p|
-      params[p.split("=")[0].strip.to_sym] = p.split("=")[1].strip
-    }
+    begin
+      self.split(",").collect(&:strip).sort.each{|p|
+        params[p.split("=")[0].strip.to_label] = p.split("=")[1].strip
+      }
+    rescue
+      raise Cutara::ParseError, "inside params: #{self}"
+    end
     params
   end
 end
