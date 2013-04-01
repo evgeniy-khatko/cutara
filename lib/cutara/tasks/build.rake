@@ -28,6 +28,7 @@ namespace "cutara" do
     args.each{ |k,v| query[k.to_s]=v }
     resp = Cutara::TarantulaUpdater.get_tests(query)
     resp = REXML::Document.new resp.body
+    puts resp
     resp.elements.each('test/test') do |test|
       title = test.elements['title'].text
       body = test.elements['body'].text
