@@ -25,20 +25,20 @@ end
 
 
 # action_steps
-Допустим /^выполнено действие "(.*?)"$/ do |arg1|
+Допустим /^выполнено "(.*?)"$/ do |arg1|
   APP.add_action arg1.to_label.to_sym
 end
 
-Допустим /^действие "(.*?)" выполнено с параметрами "(.*?)"$/ do |arg1, arg2|
+Допустим /^"(.*?)" выполнено с параметрами "(.*?)"$/ do |arg1, arg2|
   args = arg2.to_params.keys
   APP.add_action arg1.to_label.to_sym, args
 end
 
-Если /^выполнить действие "(.*?)"$/ do |arg1|
+Если /^выполнить "(.*?)"$/ do |arg1|
   APP.add_action arg1.to_label.to_sym
 end
 
-Если /^действие "(.*?)" выполнить с параметрами "(.*?)"$/ do |arg1, arg2|
+Если /^"(.*?)" выполнить с параметрами "(.*?)"$/ do |arg1, arg2|
   args = arg2.to_params.keys
   APP.add_action arg1.to_label.to_sym, args
 end
@@ -161,12 +161,12 @@ end
   APP.add_pagination
 end
 
-Допустим /^на каждой странице пагинации выполнить действие "(.*?)"$/ do |arg1|
+Допустим /^на каждой странице пагинации выполнить "(.*?)"$/ do |arg1|
   APP.add_pagination
   APP.add_action arg1.to_label.to_sym
 end
 
-Допустим /^на первых "(.*?)" страницах пагинации выполнить действие "(.*?)"$/ do |arg1, arg2|
+Допустим /^на первых "(.*?)" страницах пагинации выполнить "(.*?)"$/ do |arg1, arg2|
   APP.add_pagination
   APP.add_action arg2.to_label.to_sym
 end
@@ -184,11 +184,11 @@ end
   APP.add_validator arg1.to_label.to_sym
 end
 
-Тогда(/^действие "(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
+Тогда(/^"(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
   APP.add_action arg1.to_label.to_sym
 end
 
-Тогда(/^выполнение действия "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
+Тогда(/^выполнение "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
   args = arg2.to_params.keys
   APP.add_action arg1.to_label.to_sym, args
 end
@@ -211,13 +211,3 @@ end
 Тогда(/^открывается диалог "(.*?)"$/) do |arg1|
   APP.add_page arg1.to_label.to_sym
 end
-
-Тогда(/^выполнение проверки "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
-  begin
-    args = arg2.split(",").collect(&:to_label)
-  rescue
-    raise Cutara::ParseError, "inside params #{arg2}"
-  end
-  APP.add_validator arg1.to_label.to_sym, args
-end
-

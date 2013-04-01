@@ -64,9 +64,15 @@ class String
 
   def to_params
     params = {}
+    i = 0
     begin
       self.split(",").collect(&:strip).sort.each{|p|
-        params[p.split("=")[0].strip.to_label.to_sym] = p.split("=")[1].strip
+        i += 1
+        if p =~ /=/
+          params[p.split("=")[0].strip.to_label.to_sym] = p.split("=")[1].strip
+        else
+          params[p.strip] = p.strip
+        end
       }
     rescue
       raise Cutara::ParseError, "inside params: #{self}"

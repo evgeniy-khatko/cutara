@@ -36,23 +36,11 @@ end
   PageObjectWrapper.current_page? arg1.to_label.to_sym
 end
 
-Тогда(/^проверка "(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
-  current_page = PageObjectWrapper.current_page
-  res = current_page.send arg1.to_validator
-  res.should eq arg2
-end
-
-Тогда(/^выполнение проверки "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
-  current_page = PageObjectWrapper.current_page
-  res = current_page.send arg1.to_validator, *arg2.split(",").collect{ |arg| arg.strip.to_label }
-  res.should eq arg3
-end
-
-Тогда(/^действие "(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
+Тогда(/^"(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
   run_action_validator(arg1, arg2)
 end
 
-Тогда(/^выполнение действия "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
+Тогда(/^выполнение "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
   run_action_with_args_validator(arg1, arg2, arg3)
 end
 

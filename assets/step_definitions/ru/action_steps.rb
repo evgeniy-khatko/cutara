@@ -8,18 +8,18 @@ def run_action_with_args(action_name, params_string)
   PageObjectWrapper.current_page.send action_name.to_action, *args
 end
 
-Допустим /^выполнено действие "(.*?)"$/ do |arg1|
+Допустим /^выполнено "(.*?)"$/ do |arg1|
   run_action arg1
 end
 
-Допустим /^действие "(.*?)" выполнено с параметрами "(.*?)"$/ do |arg1, arg2|
+Допустим /^"(.*?)" выполнено с параметрами "(.*?)"$/ do |arg1, arg2|
   run_action_with_args(arg1, arg2)
 end
 
-Если /^выполнить действие "(.*?)"$/ do |arg1|
+Если /^выполнить "(.*?)"$/ do |arg1|
   run_action arg1
 end
 
-Если /^действие "(.*?)" выполнить с параметрами "(.*?)"$/ do |arg1, arg2|
+Если /^"(.*?)" выполнить с параметрами "(.*?)"$/ do |arg1, arg2|
   run_action_with_args(arg1, arg2)
 end
