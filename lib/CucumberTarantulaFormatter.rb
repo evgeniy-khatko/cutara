@@ -215,6 +215,13 @@ module Cucumber
         print_table_row_messages
         @io.puts
         if table_row.exception && !@exceptions.include?(table_row.exception)
+          @scenario_updated = true
+          message = table_row.exception.inspect
+          if @in_background
+            message += " !INSIDE BACKGROUND!"
+          end
+          resp = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, @scenario_index, "FAILED", message)
+          @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
           print_exception(table_row.exception, table_row.status, @indent)
         end
       end
