@@ -142,7 +142,7 @@ module Cucumber
       end
 
       def scenario_name(keyword, name, file_colon_line, source_indent)
-        @scenario_index += 1
+        @scenario_index += 1 unless @in_background
         @scenario_exceptions = []
         @scenario_undefined = false
         print_feature_element_name(keyword, name, file_colon_line, source_indent)
