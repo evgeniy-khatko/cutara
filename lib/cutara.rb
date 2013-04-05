@@ -71,7 +71,7 @@ class String
         if p =~ /=/
           params[p.split("=")[0].strip.to_label.to_sym] = p.split("=")[1].strip
         else
-          params[p.strip] = p.strip
+          params[p.strip.to_label.to_sym] = p.strip
         end
       }
     rescue
