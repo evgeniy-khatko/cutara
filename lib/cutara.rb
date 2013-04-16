@@ -5,7 +5,7 @@ module Cutara
   PAGES = ROOT + "/pages"
   STEPS = ROOT + "/step_definitions/predefined"
   SUPPORT = ROOT + "/support"
-  ASSETS = File.dirname(__FILE__)+"/../assets"
+  EXECUTION = File.dirname(__FILE__)+"/../execution"
   GENERATION = File.dirname(__FILE__)+"/../generation/"
 
   class ExecutionStepError < StandardError; end
@@ -52,6 +52,10 @@ class String
 
   def to_select
     'select_from_'+self.to_label
+  end
+
+  def to_select_row
+    'select_row_from_'+self.to_label
   end
 
   def to_each

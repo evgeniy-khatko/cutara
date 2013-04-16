@@ -7,7 +7,7 @@ task :default => [:test]
 
 desc "Runs tests"
 task :test do
-  system "cucumber -b features -r assets"
+  system "cucumber -b features -r execution"
 end
 
 desc "Runs generation steps"
