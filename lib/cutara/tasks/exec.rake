@@ -6,6 +6,8 @@ namespace "cutara" do
     FORMATTER = File.dirname(__FILE__) + "/../../../lib/CucumberTarantulaFormatter.rb"
     Rake::Task["cutara:download"].execute(:project => args[:project], :testcase => args[:testcase], :execution => args[:execution])
     Rake::Task["cutara:build"].execute
-    system "project=\"#{args[:project]}\" execution=\"#{args[:execution]}\" cucumber -b #{Cutara::ROOT} -r #{FORMATTER} -r #{Cutara::ROOT} -f Cucumber::Formatter::CustomTarantulaFormatter"
+    ENV['project'] = "#{args[:project]}"
+    ENV['execution'] = "#{args[:execution]}"
+    system "cucumber -b #{Cutara::ROOT} -r #{FORMATTER} -r #{Cutara::ROOT} -f Cucumber::Formatter::CustomTarantulaFormatter"
   end
 end
