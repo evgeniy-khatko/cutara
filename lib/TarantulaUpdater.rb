@@ -20,7 +20,7 @@ module Cutara
         :body => options.to_xml(:skip_types => true, :root => "request")
       }
       response = self.post(@config["server"]+'/api/get_scenarios', params)
-      raise response.body unless response.code == 200
+      raise response.body.to_s unless response.code == 200
       response
     end
 
