@@ -1,0 +1,4 @@
+language: language_of_your_specs # supported: [en,ru], please do pull request for other langs
+username: tarantula_admin_login
+password: tarantula_admin_password
+server: http://localhost:8080
