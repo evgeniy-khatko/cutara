@@ -11,8 +11,7 @@ namespace "cutara" do
     mkdir_p(Cutara::STEPS) unless File.exists?(Cutara::STEPS)
     cp "#{Cutara::EXECUTION}/support/env.rb", Cutara::SUPPORT unless File.exists? "#{Cutara::SUPPORT}/env.rb"
     cp "#{Cutara::EXECUTION}/support/helper.rb", Cutara::SUPPORT unless File.exists? "#{Cutara::SUPPORT}/helper.rb"
-    steps_source = Cutara::EXECUTION + "/step_definitions/" + @lang.to_s
-    Dir.glob("#{steps_source}/*") {|f| cp File.expand_path(f), Cutara::STEPS }
+    cp "#{Cutara::EXECUTION}/step_definitions/#{@lang.to_s}/predefined_steps.rb", Cutara::STEPS unless File.exists? "#{Cutara::STEPS}/predefined_steps.rb"
   end
 
   desc "Downloads cucumber scenarios from tarantula"
