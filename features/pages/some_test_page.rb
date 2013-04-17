@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 PageObjectWrapper.define_page(:some_test_page) do
-  locator 'http://www.cs.tut.fi/~jkorpela/www/testel.html'
+  #locator 'http://www.cs.tut.fi/~jkorpela/www/testel.html'
+  locator 'file://'+Dir.pwd+'/features/pages/some_test_page.html'
 
   text_field(:tf) do
     locator :id => 'f1'
@@ -56,6 +57,10 @@ PageObjectWrapper.define_page(:some_test_page) do
   end 
 
   validator(:znachenie_hedera) do
-    h1.when_present.text
+    h1.when_present.text == 'header'
   end 
+
+	validator :vernoe_znachenie_hedera do 
+    h1.when_present.text == 'Testing display of HTML elements'
+	end
 end

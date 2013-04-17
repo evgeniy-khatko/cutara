@@ -13,6 +13,7 @@ require GENERATION + 'Validator'
     
     def initialize
       @current_page = nil
+      @current_table = nil
     end
 
     def pages
@@ -64,7 +65,12 @@ require GENERATION + 'Validator'
     def add_table label
       t = @current_page.find_table(label) || Table.new(label)
       (@current_page.tables << t).uniq!
+      @current_table = t
       t
+    end
+
+    def add_column label
+      @current_table.add_column label
     end
 
     def add_validator label, params=nil

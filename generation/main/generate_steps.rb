@@ -11,11 +11,11 @@ end
   APP.add_page arg1.to_label.to_sym
 end
 
-Если /^открыть страницу "(.*?)"$/ do |arg1|
+Допустим /^открыть страницу "(.*?)"$/ do |arg1|
   APP.add_page arg1.to_label.to_sym
 end
 
-Если /^страницу "(.*?)" открыть с параметрами "(.*?)"$/ do |arg1, arg2|
+Допустим /^страницу "(.*?)" открыть с параметрами "(.*?)"$/ do |arg1, arg2|
   APP.add_page arg1.to_label.to_sym
 end
 
@@ -34,45 +34,45 @@ end
   APP.add_action arg1.to_label.to_sym, args
 end
 
-Если /^выполнить "(.*?)"$/ do |arg1|
+Допустим /^выполнить "(.*?)"$/ do |arg1|
   APP.add_action arg1.to_label.to_sym
 end
 
-Если /^"(.*?)" выполнить с параметрами "(.*?)"$/ do |arg1, arg2|
+Допустим /^"(.*?)" выполнить с параметрами "(.*?)"$/ do |arg1, arg2|
   args = arg2.to_params.keys
   APP.add_action arg1.to_label.to_sym, args
 end
 
 # data_input_steps
-Пусть /^на странице введены "(.*?)"$/ do |arg1|
+Допустим /^на странице введены "(.*?)"$/ do |arg1|
   APP.add_menu arg1.to_label.to_sym
 end
 
-Пусть /^в набор элементов "(.*?)" введены "(.*?)"$/ do |arg1, arg2|
+Допустим /^в набор элементов "(.*?)" введены "(.*?)"$/ do |arg1, arg2|
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
-Пусть /^на форме "(.*?)" введены "(.*?)"$/ do |arg1, arg2|
+Допустим /^на форме "(.*?)" введены "(.*?)"$/ do |arg1, arg2|
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
-Пусть /^в поле "(.*?)" введено значение "(.*?)"$/ do |arg1, arg2|
+Допустим /^в поле "(.*?)" введено значение "(.*?)"$/ do |arg1, arg2|
   APP.add_input arg1.to_label.to_sym
 end
 
-Если /^на странице ввести "(.*?)"$/ do |arg1|
+Допустим /^на странице ввести "(.*?)"$/ do |arg1|
   APP.add_menu arg1.to_label.to_sym
 end
 
-Если /^в набор элементов "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
+Допустим /^в набор элементов "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
-Если /^на форме "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
+Допустим /^на форме "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
-Если /^в поле "(.*?)" ввести значение "(.*?)"$/ do |arg1, arg2|
+Допустим /^в поле "(.*?)" ввести значение "(.*?)"$/ do |arg1, arg2|
   APP.add_input arg1.to_label.to_sym
 end
 
@@ -89,15 +89,15 @@ end
   APP.add_element arg1.to_label.to_sym
 end
 
-Если /^нажать ссылку "(.*?)"$/ do |arg1|
+Допустим /^нажать ссылку "(.*?)"$/ do |arg1|
   APP.add_link arg1.to_label.to_sym
 end
 
-Если /^нажать кнопку "(.*?)"$/ do |arg1|
+Допустим /^нажать кнопку "(.*?)"$/ do |arg1|
   APP.add_button arg1.to_label.to_sym
 end
 
-Если /^нажать на элемент "(.*?)"$/ do |arg1|
+Допустим /^нажать на элемент "(.*?)"$/ do |arg1|
   APP.add_element arg1.to_label.to_sym
 end
 
@@ -132,27 +132,27 @@ end
   t.add_column arg2.to_label.to_sym
 end
 
-Если /^в таблице "(.*?)" выбрать ячейку колонки "(.*?)" с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3, arg4|
+Допустим /^в таблице "(.*?)" выбрать ячейку колонки "(.*?)" с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3, arg4|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
 
-Если /^в таблице "(.*?)" выбрать ячейку с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
+Допустим /^в таблице "(.*?)" выбрать ячейку с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
 
-Если /^в таблице "(.*?)" выбрать ячейку с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
+Допустим /^в таблице "(.*?)" выбрать ячейку с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
 
-Если /^в таблице "(.*?)" выбрать элемент колонки "(.*?)"$/ do |arg1, arg2|
+Допустим /^в таблице "(.*?)" выбрать элемент колонки "(.*?)"$/ do |arg1, arg2|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
 
-Если /^в таблице "(.*?)" выбрать элемент колонки "(.*?)" из "(.*?)" строки$/ do |arg1, arg2, arg3|
+Допустим /^в таблице "(.*?)" выбрать элемент колонки "(.*?)" из "(.*?)" строки$/ do |arg1, arg2, arg3|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
@@ -176,38 +176,73 @@ end
 end
 
 # validation_steps
-Тогда(/^открывается страница "(.*?)"$/) do |arg1|
+Допустим(/^открывается страница "(.*?)"$/) do |arg1|
   APP.add_page arg1.to_label.to_sym
 end
 
-Тогда(/^проверка "(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
+Допустим(/^проверка "(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
   APP.add_validator arg1.to_label.to_sym
 end
 
-Тогда(/^"(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
+Допустим(/^"(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
   APP.add_action arg1.to_label.to_sym
 end
 
-Тогда(/^выполнение "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
+Допустим(/^выполнение "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
   args = arg2.to_params.keys
   APP.add_action arg1.to_label.to_sym, args
 end
 
-Тогда(/^в "(.*?)" строке колонки "(.*?)" таблицы "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4|
+Допустим(/^в "(.*?)" строке колонки "(.*?)" таблицы "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4|
   t = APP.add_table arg3.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
 
-Тогда(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" равным "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
+Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" равным "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
   t = APP.add_table arg2.to_label.to_sym
   t.add_column arg1.to_label.to_sym
 end
 
-Тогда(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" похожим на "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
+Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" похожим на "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
   t = APP.add_table arg2.to_label.to_sym
   t.add_column arg1.to_label.to_sym
 end
 
-Тогда(/^открывается диалог "(.*?)"$/) do |arg1|
+Допустим(/^открывается диалог "(.*?)"$/) do |arg1|
   APP.add_page arg1.to_label.to_sym
+end
+
+Допустим(/^открыть новое окно браузера$/) do
+end
+
+Допустим(/^значение поля "(.*?)" равно "(.*?)"$/) do |arg1, arg2|
+  APP.add_input arg1.to_label.to_sym
+end
+
+Допустим(/^результат запомнить как "(.*?)"$/) do |arg1|
+end
+
+Допустим(/^"(.*?)" равно "(.*?)"$/) do |arg1, arg2|
+end
+
+Допустим(/^текст ячейки "(.*?)" равен "(.*?)"$/) do |arg1, arg2|
+  APP.add_column arg1.to_label.to_sym
+end
+
+Допустим(/^текст ячейки "(.*?)" запомнить как "(.*?)"$/) do |arg1, arg2|
+end
+
+Допустим(/^в таблице "(.*?)" есть строка:$/) do |arg1, table|
+  t = APP.add_table arg1.to_label.to_sym
+  raise "search criteria: #{table.raw.inspect} has more that 2 rows" if table.raw.length != 2
+  table.hashes.first.keys{ |column_name|
+    t.add_column column_name.to_label.to_sym
+  }
+end
+
+Допустим(/^нажать на ячейку "(.*?)"$/) do |arg1|
+end
+
+Допустим(/^проверить "(.*?)"$/) do |arg1|
+  APP.add_validator arg1.to_label.to_sym
 end

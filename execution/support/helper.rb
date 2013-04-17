@@ -59,8 +59,8 @@ module Cutara
         end
       }
       current_page = PageObjectWrapper.current_page
-      raw = current_page.send t_name.to_select_raw, sanitized_query
-      raise "table \"#{t_name}\" does not have row with parameters #{query.inspect}" if raw.nil?
+      row = current_page.send t_name.to_select_row, sanitized_query
+      raise "table \"#{t_name}\" does not have row with parameters #{query.inspect}" if row.nil?
     end
 
     def complex_select(t_name, find_in, find_by, value)
@@ -86,6 +86,11 @@ module Cutara
     def run_action_validator(action_name, check_value)
       res = PageObjectWrapper.current_page.send action_name.to_action
       res.should eq check_value
+    end
+
+    def run_validator(validator_name)
+      res = PageObjectWrapper.current_page.send validator_name.to_validator
+      res.should eq true
     end
 
     def run_action_with_args_validator(action_name, params_string, check_value)
