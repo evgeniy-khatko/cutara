@@ -3,7 +3,7 @@ require 'babosa'
 module Cutara
   ROOT = Dir.pwd + "/features"
   PAGES = ROOT + "/pages"
-  STEPS = ROOT + "/step_definitions/predefined"
+  STEPS = ROOT + "/step_definitions"
   SUPPORT = ROOT + "/support"
   EXECUTION = File.dirname(__FILE__)+"/../execution"
   GENERATION = File.dirname(__FILE__)+"/../generation/"
