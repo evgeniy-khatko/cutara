@@ -31,7 +31,7 @@ end
   feed_set(arg1, arg2)
 end
 
-Допустим /^в поле "(.*?)" ввести значение "(.*?)"$/ do |arg1, arg2|
+Допустим /^в поле "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   feed_field(arg1, arg2)
 end
 
