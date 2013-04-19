@@ -13,8 +13,8 @@ else
 end
 
 PORT=8000
-#config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
-config = YAML.load(File.open(File.dirname(__FILE__)+'/../../execution/support/tarantula.yml'))
+config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
+#config = YAML.load(File.open(File.dirname(__FILE__)+'/../../execution/support/tarantula.yml'))
 LANG = config["language"]
 TARANTULA_HOST = config["server"]
 TARANTULA_USER = config["username"]
