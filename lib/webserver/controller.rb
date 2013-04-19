@@ -4,6 +4,13 @@ require 'padrino-helpers'
 require 'erb'
 require 'cutara'
 require 'json/pure'
+if RUBY_PLATFORM=='i386-mingw32'
+	require 'win32/process'
+	require 'win32/open3'
+else
+	require 'open3'
+	include Open3
+end
 
 PORT=8000
 #config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
@@ -42,24 +49,33 @@ end
 
 	post '/build' do		
 		content_type :json
-    result = `bundle exec rake cutara:build[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_execution']}\"]`
-    return {:result => result.gsub("\n","</br>")}.to_json		
+    result = execute "bundle exec rake cutara:build[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_execution']}\"]"
+    return {:result => result}.to_json		
 	end
 
 	post '/known' do		
 		content_type :json
-    result = `bundle exec rake cutara:known`
-    return {:result => result.gsub("\n","</br>")}.to_json		
+    result = execute "bundle exec rake cutara:known"
+    return {:result => result}.to_json		
 	end
 
 	post '/local_exec' do		
 		content_type :json
-    result = `bundle exec rake cutara:local_exec`
-    return {:result => result.gsub("\n","</br>")}.to_json		
+    result = execute "bundle exec rake cutara:local_exec"
+    return {:result => result}.to_json		
 	end
 
 	post '/exec' do		
 		content_type :json
-    result = `bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_execution']}\",\"#{params['tarantula_test']}\"]`
-    return {:result => result.gsub("\n","</br>")}.to_json		
+    result = execute "bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_execution']}\",\"#{params['tarantula_test']}\"]"
+    return {:result => result}.to_json		
 	end
+
+  def execute(cmd)
+		i,o,e = Open3.popen3(cmd)
+    i.close
+    output = "OUTPUT:</br>#{o.read.gsub("\n","</br>")}</br>ERRORS:</br>#{e.read.gsub("\n","</br>")}"
+    o.close
+    e.close
+    output
+  end
