@@ -20,6 +20,9 @@ Gem::Specification.new do |gem|
   gem.add_dependency "activesupport", ">= 3.2.13"
   gem.add_dependency "rake"
   gem.add_dependency "bundler"
+  gem.add_dependency "sinatra"
+  gem.add_dependency "padrino-helpers"
+  gem.add_dependency "json_pure"
 	gem.add_development_dependency "debugger"
 	gem.add_development_dependency "magic_encoding"
 

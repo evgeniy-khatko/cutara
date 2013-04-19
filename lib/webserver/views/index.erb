@@ -1,0 +1,45 @@
+<div id="main">
+	<p class="block_h">Data</p>
+  <form id="data">
+		<table style="margin-left: 15px; width: 90%">
+    	<tr>
+				<td><%=label_tag 'Language'%></td>
+        <td><%=text_field_tag 'language',:value=>"#{LANG}", :disabled => true, :size => "50"%></td>
+			</tr>	
+    	<tr>
+				<td><%=label_tag 'Tarantula location'%></td>
+				<td><%=text_field_tag 'tarantula_host',:value=>"#{TARANTULA_HOST}", :disabled => true, :size => "50"%></td>
+			</tr>	
+    	<tr>
+				<td><%=label_tag 'Tarantula user'%></td>
+				<td><%=text_field_tag 'tarantula_user',:value=>"#{TARANTULA_USER}", :disabled => true, :size => "50"%></td>
+			</tr>	
+    	<tr>
+				<td><%=label_tag 'Tarantula project'%></td>
+				<td><%=text_field_tag 'tarantula_project',:value=>"#{TARANTULA_PROJECT}", :size => "50"%></td>
+			</tr>	
+    	<tr>
+				<td><%=label_tag 'Tarantula test'%></td>
+				<td><%=text_field_tag 'tarantula_test', :size => "50"%></td>
+			</tr>	
+    	<tr>
+				<td><%=label_tag 'Tarantula execution'%></td>
+				<td><%=text_field_tag 'tarantula_execution', :size => "50"%></td>
+			</tr>	
+    </table>
+    </form>
+	<p class="block_h">Rake tasks</p>
+		<table style="margin-left: 15px">
+      <tr>
+        <td><img src="img/build.gif" onclick="build()" ></td>
+      </tr>
+    </table>
+</div>
+
+<div id="console">
+	<p class="block_h" style="color: #A4A4A4">
+		Console	
+	</p>
+
+  <div id='output'></div>	
+</div>

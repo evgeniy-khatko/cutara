@@ -14,7 +14,7 @@ task :test_execution_debug do
   system "cucumber -b features -r execution"
 end
 
-desc "Runs generation steps"
+desc "Runs generation test"
 task :test_generation do
-  system "cucumber -b features -r generation/main"
+  system "cucumber -b features -r generation/main -f progress"
 end

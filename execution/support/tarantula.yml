@@ -2,3 +2,4 @@ language: language_of_your_specs # supported: [en,ru], please do pull request fo
 username: tarantula_admin_login
 password: tarantula_admin_password
 server: http://localhost:8080
+project: Default Project

@@ -1,0 +1,58 @@
+.block_h{text-align: center; font-family: "Comic Sans MS"; font-size: 16px;}
+.centered{text-align: center;}
+
+#banner {
+	position: absolute;
+	top: 0.5%;
+	left: 0%;
+	width: 100%;
+	height: 35px;
+	background-color: #ABBAC6;
+	text-align: center;
+	z-index: 1;
+	text-align: center; font-family: "Comic Sans MS"; font-size: 18px
+}
+
+#main{	 
+  position: absolute;
+	left: 0%;
+  top: 45px;
+  bottom: 45px;
+	width: 50%;
+	background-color: #E6E6E6;
+	margin-left: 3px;
+	overflow: auto;
+}
+
+#console{
+  position: absolute;
+	left: 50%;
+  top: 45px;
+  bottom: 45px;
+	width: 50%;
+	background-color: #2E2E2E;
+	margin-left: 3px;
+	color: #F6CED8;	
+	overflow: auto;
+}
+
+#output{
+	position: relative;
+	top: -10px;
+  padding: 10px;
+	overflow: auto;
+	font-size: small;    
+}
+
+#info {
+	position: absolute;
+	bottom: 0.5%;
+	height: 35px;
+  width: 100%;
+	background-color: #ABBAC6;
+	text-align: center;
+	z-index: 1;
+	text-align: center; font-family: "Comic Sans MS"; font-size: 18px
+}
+
+.valignmiddle{vertical-align: middle}
