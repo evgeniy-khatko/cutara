@@ -23,7 +23,10 @@ Gem::Specification.new do |gem|
   gem.add_dependency "sinatra"
   gem.add_dependency "padrino-helpers"
   gem.add_dependency "json_pure"
-  gem.add_dependency "win32-process"
+  if spec.platform.to_s == 'x86-mswin32'
+    gem.add_dependency "win32-process"
+    gem.add_dependency "win32-open3"
+  end
 	gem.add_development_dependency "debugger"
 	gem.add_development_dependency "magic_encoding"
 
