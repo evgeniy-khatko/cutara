@@ -1,6 +1,7 @@
 <div id="main">
-	<p class="block_h">Data</p>
   <form id="data">
+  <fieldset>
+	<p class="block_h">Defaults</p>
 		<table style="margin-left: 15px; width: 90%">
     	<tr>
 				<td><%=label_tag 'Language'%></td>
@@ -18,26 +19,39 @@
 				<td><%=label_tag 'Tarantula project'%></td>
 				<td><%=text_field_tag 'tarantula_project',:value=>"#{TARANTULA_PROJECT}", :size => "50"%></td>
 			</tr>	
+    </table>
+  </fieldset>
+  <fieldset>
+	<p class="block_h">Remote tasks</p>
+		<table style="margin-left: 15px; width: 90%">
     	<tr>
 				<td><%=label_tag 'Tarantula test'%></td>
 				<td><%=text_field_tag 'tarantula_test', :size => "50"%></td>
 			</tr>	
     	<tr>
+				<td><%=label_tag 'Tarantula tag'%></td>
+				<td><%=text_field_tag 'tarantula_tag', :size => "50"%></td>
+			</tr>	
+    	<tr>
 				<td><%=label_tag 'Tarantula execution'%></td>
 				<td><%=text_field_tag 'tarantula_execution', :size => "50"%></td>
-			</tr>	
+			</tr>
     </table>
+    <p class="block_h" style="color: #A4A4A4">
+      <button>Build</button>
+      <button>Execute</button>
+    </p>
+  </fieldset>
+  <fieldset>
+	<p class="block_h">Local tasks</p>
+    <p class="block_h" style="color: #A4A4A4">
+      <button>Execute locally</button>
+      <button>Generate</button>
+      <button>List known</button>
+      <button>Transliterate</button>
+    </p>
+  </fieldset>
     </form>
-	<p class="block_h">Rake tasks</p>
-		<table style="margin-left: 15px">
-      <tr>
-        <td><img id='build' alt='build' title='build' class='rake_task' src="img/build.png" onclick="run_task('build')" ></td>
-        <td><img id='generate' alt='generate' title='generate' class='rake_task' src="img/generate.png" onclick="run_task('generate')" ></td>
-        <td><img id='local_exec' alt='local_exec' title='local_exec' class='rake_task' src="img/local_exec.png" onclick="run_task('local_exec')" ></td>
-        <td><img id='exec' alt='exec' title='exec' class='rake_task' src="img/exec.png" onclick="run_task('exec')" ></td>
-        <td><img id='known' alt='known' title='known' class='rake_task' src="img/known.png" onclick="run_task('known')" ></td>
-      </tr>
-    </table>
 </div>
 
 <div id="console">

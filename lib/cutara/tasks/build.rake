@@ -6,7 +6,7 @@ include FileUtils::Verbose
 @lang = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))["language"] if File.exist? Cutara::SUPPORT+'/tarantula.yml'
 namespace "cutara" do
   desc "Builds cucumber project"
-  task :build, [:project, :testcase, :execution] => :download do
+  task :build, [:project, :testcase, :tag, :execution] => :download do
     mkdir_p(Cutara::PAGES) unless File.exists?(Cutara::PAGES)
     mkdir_p(Cutara::STEPS) unless File.exists?(Cutara::STEPS)
     cp "#{Cutara::EXECUTION}/support/env.rb", Cutara::SUPPORT unless File.exists? "#{Cutara::SUPPORT}/env.rb"
@@ -15,8 +15,8 @@ namespace "cutara" do
   end
 
   desc "Downloads cucumber scenarios from tarantula"
-  task :download, :project, :testcase, :execution do |t, args|
-    raise "arguments: [project*,testcase,execution]" if args.empty?
+  task :download, :project, :testcase, :tag, :execution do |t, args|
+    raise "arguments: [project*,testcase,tag,execution]" if args.empty?
     rm Dir.glob(Cutara::ROOT+'/*.feature'), :force => true   
     unless File.exist?(Cutara::SUPPORT+"/tarantula.yml")
       mkdir_p(Cutara::SUPPORT) unless File.exists?(Cutara::SUPPORT) # including ROOT dir
