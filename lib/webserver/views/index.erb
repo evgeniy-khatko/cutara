@@ -2,53 +2,64 @@
   <form id="data">
   <fieldset>
 	<p class="block_h">Defaults</p>
-		<table style="margin-left: 15px; width: 90%">
+		<table style="margin-left: 180px; width: 55%">
     	<tr>
 				<td><%=label_tag 'Language'%></td>
-        <td><%=text_field_tag 'language',:value=>"#{LANG}", :disabled => true, :size => "50"%></td>
+        <td><%=text_field_tag 'language',:value=>"#{LANG}", :size => "35"%></td>
 			</tr>	
     	<tr>
 				<td><%=label_tag 'Tarantula location'%></td>
-				<td><%=text_field_tag 'tarantula_host',:value=>"#{TARANTULA_HOST}", :disabled => true, :size => "50"%></td>
+				<td><%=text_field_tag 'tarantula_host',:value=>"#{TARANTULA_HOST}", :size => "35"%></td>
 			</tr>	
     	<tr>
 				<td><%=label_tag 'Tarantula user'%></td>
-				<td><%=text_field_tag 'tarantula_user',:value=>"#{TARANTULA_USER}", :disabled => true, :size => "50"%></td>
+				<td><%=text_field_tag 'tarantula_user',:value=>"#{TARANTULA_USER}", :size => "35"%></td>
 			</tr>	
     	<tr>
 				<td><%=label_tag 'Tarantula project'%></td>
-				<td><%=text_field_tag 'tarantula_project',:value=>"#{TARANTULA_PROJECT}", :size => "50"%></td>
+				<td><%=text_field_tag 'tarantula_project',:value=>"#{TARANTULA_PROJECT}", :size => "35"%></td>
 			</tr>	
     </table>
   </fieldset>
   <fieldset>
 	<p class="block_h">Remote tasks</p>
-		<table style="margin-left: 15px; width: 90%">
+		<table style="margin-left: 180px; width: 55%">
     	<tr>
 				<td><%=label_tag 'Tarantula test'%></td>
-				<td><%=text_field_tag 'tarantula_test', :size => "50"%></td>
+				<td><%=text_field_tag 'tarantula_test', :size => "35"%></td>
 			</tr>	
     	<tr>
 				<td><%=label_tag 'Tarantula tag'%></td>
-				<td><%=text_field_tag 'tarantula_tag', :size => "50"%></td>
+				<td><%=text_field_tag 'tarantula_tag', :size => "35"%></td>
 			</tr>	
     	<tr>
 				<td><%=label_tag 'Tarantula execution'%></td>
-				<td><%=text_field_tag 'tarantula_execution', :size => "50"%></td>
+				<td><%=text_field_tag 'tarantula_execution', :size => "35"%></td>
 			</tr>
     </table>
     <p class="block_h" style="color: #A4A4A4">
-      <button>Build</button>
-      <button>Execute</button>
+      <button id='build'>Build</button>
+      <button id='exec'>Execute</button>
     </p>
   </fieldset>
   <fieldset>
 	<p class="block_h">Local tasks</p>
     <p class="block_h" style="color: #A4A4A4">
-      <button>Execute locally</button>
-      <button>Generate</button>
-      <button>List known</button>
-      <button>Transliterate</button>
+      <button id='generate' onclick="run_task('generate')">Generate</button>
+      <button id='local_exec'>Execute locally</button>
+    </p>
+  </fieldset>
+  <fieldset>
+	<p class="block_h">Helper tasks</p>
+		<table style="margin-left: 180px; width: 55%">
+    	<tr>
+        <td><%=label_tag "String in #{LANG}"%></td>
+				<td><%=text_field_tag 'string', :size => "35"%></td>
+			</tr>
+    </table>
+    <p class="block_h" style="color: #A4A4A4">
+      <button id='known'>List known</button>
+      <button id='transliterate'>Transliterate</button>
     </p>
   </fieldset>
     </form>
@@ -56,7 +67,7 @@
 
 <div id="console">
 	<p class="block_h" style="color: #A4A4A4">
-		Console	
+    Results
 	</p>
 
   <div id='output'></div>	

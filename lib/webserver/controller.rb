@@ -44,18 +44,21 @@ end
     erb :index
   end
 	
-	post '/generate' do		
-	end
-
 	post '/build' do		
 		content_type :json
     result = execute "bundle exec rake cutara:build[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_execution']}\"]"
     return {:result => result}.to_json		
 	end
 
-	post '/known' do		
+	post '/exec' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:known"
+    result = execute "bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_execution']}\",\"#{params['tarantula_test']}\"]"
+    return {:result => result}.to_json		
+	end
+
+	post '/generate' do		
+		content_type :json
+    result = execute "bundle exec rake cutara:generate"
     return {:result => result}.to_json		
 	end
 
@@ -65,9 +68,15 @@ end
     return {:result => result}.to_json		
 	end
 
-	post '/exec' do		
+	post '/known' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_execution']}\",\"#{params['tarantula_test']}\"]"
+    result = execute "bundle exec rake cutara:known"
+    return {:result => result}.to_json		
+	end
+
+	post '/transliterate' do		
+		content_type :json
+    result = execute "bundle exec rake cutara:transliterate[\"#{params['string']}\"]"
     return {:result => result}.to_json		
 	end
 

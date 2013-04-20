@@ -1,6 +1,7 @@
 require 'rake'
 require "bundler/gem_tasks"
 import "lib/cutara/tasks/known.rake"
+import "lib/cutara/tasks/transliterate.rake"
 
 
 task :default => [:test_execution]
