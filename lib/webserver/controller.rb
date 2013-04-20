@@ -13,8 +13,8 @@ else
 end
 
 PORT=8000
-config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
-#config = YAML.load(File.open(File.dirname(__FILE__)+'/../../execution/support/tarantula.yml'))
+#config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
+config = YAML.load(File.open(File.dirname(__FILE__)+'/../../execution/support/tarantula.yml'))
 LANG = config["language"]
 TARANTULA_HOST = config["server"]
 TARANTULA_USER = config["username"]
@@ -46,13 +46,13 @@ end
 	
 	post '/build' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:build[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_execution']}\"]"
+    result = execute "bundle exec rake cutara:build[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_tag']}\",\"#{params['tarantula_execution']}\"]"
     return {:result => result}.to_json		
 	end
 
 	post '/exec' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_execution']}\",\"#{params['tarantula_test']}\"]"
+    result = execute "bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_tag']}\",\"#{params['tarantula_execution']}\"]"
     return {:result => result}.to_json		
 	end
 

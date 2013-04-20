@@ -33,16 +33,18 @@
 	width: 50%;
 	background-color: #2E2E2E;
 	margin-left: 3px;
-	color: #F6CED8;	
 	overflow: auto;
+  color: #fcf0f3;
+  font-family: "Courier New";
+  font-weight: 100;
 }
 
 #output{
 	position: relative;
 	top: -10px;
-  padding: 10px;
+  padding: 15px;
 	overflow: auto;
-	font-size: small;    
+	font-size: smaller;    
 }
 
 #info {
