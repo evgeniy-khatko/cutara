@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 include Cutara
-require GENERATION + 'Application'
 
 # open_steps
 Допустим /^открыта страница "(.*?)"$/ do |arg1|
@@ -56,7 +55,7 @@ end
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
-Допустим /^в поле "(.*?)" введено значение "(.*?)"$/ do |arg1, arg2|
+Допустим /^в поле "(.*?)" введено "(.*?)"$/ do |arg1, arg2|
   APP.add_input arg1.to_label.to_sym
 end
 
@@ -72,7 +71,7 @@ end
   APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
 end
 
-Допустим /^в поле "(.*?)" ввести значение "(.*?)"$/ do |arg1, arg2|
+Допустим /^в поле "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   APP.add_input arg1.to_label.to_sym
 end
 

@@ -17,5 +17,5 @@ end
 
 desc "Runs generation test"
 task :test_generation do
-  system "cucumber -b features -r generation/main -f progress"
+  system "cucumber -b features -r generation -f progress"
 end

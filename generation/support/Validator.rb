@@ -1,7 +1,7 @@
 require 'cutara'
 module Cutara
-require GENERATION + 'PageElement'
-require GENERATION + 'Action'
+require GENERATION + 'support/PageElement'
+require GENERATION + 'support/Action'
   class Validator < Action
     def to_snippet
       if @params

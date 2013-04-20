@@ -1,12 +1,12 @@
 require 'cutara'
 module Cutara
-require GENERATION + 'Page'
-require GENERATION + 'Action'
-require GENERATION + 'Eset'
-require GENERATION + 'Input'
-require GENERATION + 'Clickable'
-require GENERATION + 'Table'
-require GENERATION + 'Validator'
+require GENERATION + 'support/Page'
+require GENERATION + 'support/Action'
+require GENERATION + 'support/Eset'
+require GENERATION + 'support/Input'
+require GENERATION + 'support/Clickable'
+require GENERATION + 'support/Table'
+require GENERATION + 'support/Validator'
 
   class Application
     attr_accessor :current_page

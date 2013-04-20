@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'cutara'
-require Cutara::GENERATION + 'Application'
+require Cutara::GENERATION + 'support/Application'
 module Cutara
   APP = Application.new unless const_defined?(:APP)
 end

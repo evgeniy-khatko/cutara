@@ -1,7 +1,7 @@
 require 'cutara'
-module Cutara
-require GENERATION + 'PageElement'
-  class Input < PageElement
+include Cutara
+require GENERATION + 'support/PageElement'
+  class Eset < PageElement
     attr_accessor :menus
     def initialize label
       super label
@@ -9,11 +9,10 @@ require GENERATION + 'PageElement'
     end
 
     def to_snippet
-      out = "\ttext_field #{@label.inspect} do \n\t\tlocator \n"
+      out = "\telements_set #{@label.inspect} do \n"
       @menus.each{|menu|
         out += "\t\tmenu #{menu.inspect} \n"
       }
-      out += "\tend \n\n"
+      out += "\tend\n\n"
     end
   end
-end

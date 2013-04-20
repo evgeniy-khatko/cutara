@@ -1,6 +1,6 @@
 require 'cutara'
 module Cutara
-require GENERATION + 'PageElement'
+require GENERATION + 'support/PageElement'
   class Table < PageElement
     attr_accessor :columns
     def initialize label
