@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "json_pure"
   if RUBY_PLATFORM == 'i386-mingw32'
     gem.add_dependency "win32-process"
-    gem.add_dependency "win32-open3"
+    gem.add_dependency "win32-open3-19"
   end
 	gem.add_development_dependency "debugger"
 	gem.add_development_dependency "magic_encoding"
