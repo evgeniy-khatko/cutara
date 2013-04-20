@@ -83,7 +83,7 @@ end
   def execute(cmd)
 		i,o,e = Open3.popen3(cmd)
     i.close
-    output = "OUTPUT:</br>#{o.read.gsub("\n","</br>")}</br>ERRORS:</br>#{e.read.gsub("\n","</br>")}"
+    output = "OUTPUT:</br>#{o.read.gsub("\n","</br>").gsub("\t","&nbsp;&nbsp;")}</br>INFO:</br>#{e.read.gsub("\n","</br>")}"
     o.close
     e.close
     output
