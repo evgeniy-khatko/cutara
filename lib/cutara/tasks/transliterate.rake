@@ -4,7 +4,7 @@ include Cutara
 namespace "cutara" do
   desc "Converts string from given language to a label"
   task :transliterate, :string do |t, args|
-    str = args[0]
+    str = args[:string]
     puts str.to_label
   end
 end
