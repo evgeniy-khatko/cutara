@@ -25,7 +25,7 @@ configure do
 	set :sessions, true
 	set :environment, :development
 	set :port, PORT
-	set :server, %w[webrick]
+	set :server, %w[mongrel]
   # production mode settings
   
   #set :logging, false
@@ -46,52 +46,63 @@ end
 	
 	post '/build' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:build[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_tag']}\",\"#{params['tarantula_execution']}\"]"
-    return {:result => result}.to_json		
+    execute "bundle exec rake cutara:build[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_tag']}\",\"#{params['tarantula_execution']}\"]"
+    return {:status => 'ok'}.to_json		
 	end
 
 	post '/exec' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_tag']}\",\"#{params['tarantula_execution']}\"]"
-    return {:result => result}.to_json		
+    execute "bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_tag']}\",\"#{params['tarantula_execution']}\"]"
+    return {:result => 'ok'}.to_json		
 	end
 
 	post '/generate' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:generate"
-    return {:result => result}.to_json		
+    execute "bundle exec rake cutara:generate"
+    return {:result => 'ok'}.to_json		
 	end
 
 	post '/local_exec' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:local_exec", true
-    return result		
+    execute "bundle exec rake cutara:local_exec", true
+    return {:result => 'ok'}.to_json		
 	end
 
 	post '/known' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:known"
-    return {:result => result}.to_json		
+    execute "bundle exec rake cutara:known"
+    return {:result => 'ok'}.to_json		
 	end
 
 	post '/transliterate' do		
 		content_type :json
-    result = execute "bundle exec rake cutara:transliterate[\"#{params['string']}\"]"
-    return {:result => result}.to_json		
+    execute "bundle exec rake cutara:transliterate[\"#{params['string']}\"]"
+    return {:result => 'ok'}.to_json		
 	end
 
   def execute(cmd, html_output=false)
+    puts cmd
     output = ''
-		i,o,e = Open3.popen3(cmd)
-    i.close
-    err = e.read
-    out = o.read
-    o.close
-    e.close
-    if html_output
-      output = "INFO:</br>#{err.gsub("\n","</br>")}</br>#{out}"
-    else
-      output = "INFO:</br>#{err.gsub("\n","</br>")}OUTPUT:</br>#{out.gsub("\n","</br>").gsub("\t","&nbsp;&nbsp;")}"
+    exit_status = nil
+    Open3.popen2e(cmd){|i,oe,t|
+      output = oe.read
+      exit_status = t.value
+    }
+    if !html_output or exit_status != 0
+      output = html_template(output.gsub("\n","</br>")) 
     end
-    output
+    result = File.new("#{File.dirname(__FILE__)}/public/result.html","w+")
+    result.puts output
+    result.close
+  end
+
+  def html_template(body)
+    "<html>
+    <head>
+    </head>
+    <body>
+      #{body}
+    </body>
+    </html>
+    "
   end

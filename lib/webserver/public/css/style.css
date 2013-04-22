@@ -27,11 +27,10 @@
 
 #console{
   position: absolute;
-	right: 0%;
+	right: 1%;
   top: 45px;
-  bottom: 45px;
-	width: 69%;
-	margin-left: 3px;
+  height: 87%;
+	width: 68%;
 	overflow: auto;
 }
 

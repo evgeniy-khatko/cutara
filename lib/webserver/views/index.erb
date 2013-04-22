@@ -2,7 +2,7 @@
   <form id="data">
   <fieldset>
 	<p class="block_h">Defaults</p>
-		<table style="margin-left: 180px; width: 55%">
+		<table style="margin-left: 5%; width: 55%">
     	<tr>
 				<td><%=label_tag 'Language'%></td>
         <td><%=text_field_tag 'language',:value=>"#{LANG}", :size => "35", :disabled => true %></td>
@@ -23,7 +23,7 @@
   </fieldset>
   <fieldset>
 	<p class="block_h">Remote tasks</p>
-		<table style="margin-left: 180px; width: 55%">
+		<table style="margin-left: 5%; width: 55%">
     	<tr>
 				<td><%=label_tag 'Tarantula test'%></td>
 				<td><%=text_field_tag 'tarantula_test', :size => "35"%></td>
@@ -51,7 +51,7 @@
   </fieldset>
   <fieldset>
 	<p class="block_h">Helper tasks</p>
-		<table style="margin-left: 180px; width: 55%">
+		<table style="margin-left: 5%; width: 55%">
     	<tr>
         <td><%=label_tag "String in #{LANG}"%></td>
 				<td><%=text_field_tag 'string', :size => "35"%></td>
@@ -65,10 +65,5 @@
     </form>
 </div>
 
-<div id="console">
-	<p class="block_h" style="color: #A4A4A4">
-    Results
-	</p>
-
-  <div id='output'></div>	
-</div>
+<iframe id="console">
+</iframe>
