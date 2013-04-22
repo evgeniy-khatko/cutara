@@ -18,7 +18,7 @@
 	left: 0%;
   top: 45px;
   bottom: 45px;
-	width: 49%;
+	width: 30%;
 	background-color: #F8F8F8;
 	margin-left: 3px;
 	overflow: auto;
@@ -30,13 +30,9 @@
 	right: 0%;
   top: 45px;
   bottom: 45px;
-	width: 50%;
-	background-color: #2E2E2E;
+	width: 69%;
 	margin-left: 3px;
 	overflow: auto;
-  color: #fcf0f3;
-  font-family: "Courier New";
-  font-weight: 100;
 }
 
 #output{
