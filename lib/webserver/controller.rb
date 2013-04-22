@@ -65,7 +65,7 @@ end
 	post '/local_exec' do		
 		content_type :json
     result = execute "bundle exec rake cutara:local_exec", true
-    return {:result => result}.to_json		
+    return result		
 	end
 
 	post '/known' do		
@@ -80,19 +80,18 @@ end
     return {:result => result}.to_json		
 	end
 
-  def execute(cmd, html_output=nil)
+  def execute(cmd, html_output=false)
+    output = ''
 		i,o,e = Open3.popen3(cmd)
     i.close
-    output = ''
-    #output = "OUTPUT:</br>#{o.read.gsub("\n","</br>").gsub("\t","&nbsp;&nbsp;")}</br>INFO:</br>#{e.read.gsub("\n","</br>")}"
-    if not e.read.empty?
-      output = e.read.gsub("\n","</br>").gsub("\t","&nbsp;&nbsp;")
-    elsif html_output
-      output = o.read
-    else
-      output = o.read.gsub("\n","</br>").gsub("\t","&nbsp;&nbsp;")
-    end
+    err = e.read
+    out = o.read
     o.close
     e.close
+    if html_output
+      output = "INFO:</br>#{err.gsub("\n","</br>")}</br>#{out}"
+    else
+      output = "INFO:</br>#{err.gsub("\n","</br>")}OUTPUT:</br>#{out.gsub("\n","</br>").gsub("\t","&nbsp;&nbsp;")}"
+    end
     output
   end
