@@ -47,6 +47,10 @@ end
   instance_variable_get("@#{arg1.to_label}").should eq arg2
 end
 
+Допустим(/^"(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
+  instance_variable_get("@#{arg1.to_label}").should =~ arg2
+end
+
 Допустим /^на странице ввести "(.*?)"$/ do |arg1|
   feed_page(arg1)
 end

@@ -218,6 +218,10 @@ end
   APP.add_input arg1.to_label.to_sym
 end
 
+Допустим(/^значение поля "(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
+  APP.add_input arg1.to_label.to_sym
+end
+
 Допустим(/^результат запомнить как "(.*?)"$/) do |arg1|
 end
 
