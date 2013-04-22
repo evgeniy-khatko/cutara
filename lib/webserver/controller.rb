@@ -85,7 +85,7 @@ end
     i.close
     output = ''
     #output = "OUTPUT:</br>#{o.read.gsub("\n","</br>").gsub("\t","&nbsp;&nbsp;")}</br>INFO:</br>#{e.read.gsub("\n","</br>")}"
-    unless e.read.empty?
+    if not e.read.empty?
       output = e.read.gsub("\n","</br>").gsub("\t","&nbsp;&nbsp;")
     elsif html_output
       output = o.read
