@@ -28,9 +28,9 @@ class String
 
   def to_label
     if String.label_language == :english
-      return self.to_slug.to_ruby_method.downcase
+      return self.gsub(/[^[:alpha:][:blank:]]/,'').to_slug.to_ruby_method.downcase
     else
-      return self.to_slug.transliterate(String.label_language).to_ruby_method.downcase
+      return self.gsub(/[^[:alpha:][:blank:]]/,'').to_slug.transliterate(String.label_language).to_ruby_method.downcase
     end
   end
   
