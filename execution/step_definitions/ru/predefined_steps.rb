@@ -40,7 +40,7 @@ end
 end
 
 Допустим(/^значение поля "(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
-  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should =~ arg2
+  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should =~ /#{arg2}/
 end
 
 Допустим(/^"(.*?)" равно "(.*?)"$/) do |arg1, arg2|
@@ -48,7 +48,7 @@ end
 end
 
 Допустим(/^"(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
-  instance_variable_get("@#{arg1.to_label}").should =~ arg2
+  instance_variable_get("@#{arg1.to_label}").should =~ /#{arg2}/
 end
 
 Допустим /^на странице ввести "(.*?)"$/ do |arg1|
