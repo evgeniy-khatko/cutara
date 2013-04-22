@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{ Cutara is the bridge between Tarantula and Cucumber }
   gem.summary       = %q{ Cutara provides rake tasks for integration between Cucumber (test automation tool) and Taranula (test-management tool) }
   gem.homepage      = ""
-  gem.add_dependency "page_object_wrapper"
+  gem.add_dependency "page_object_wrapper", ">=1.5.1"
   gem.add_dependency "rspec"
 	gem.add_dependency "babosa"
 	gem.add_dependency "cucumber"
