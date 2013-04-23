@@ -23,7 +23,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency "sinatra"
   gem.add_dependency "padrino-helpers"
   gem.add_dependency "json_pure"
-  gem.add_dependency "syntax"
   gem.add_dependency "mongrel", "1.2.0.pre2"
   if RUBY_PLATFORM == 'i386-mingw32'
     gem.add_dependency "win32-process"

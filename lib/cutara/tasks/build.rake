@@ -17,7 +17,7 @@ namespace "cutara" do
   desc "Downloads cucumber scenarios from tarantula"
   task :download, :project, :testcase, :tag, :execution do |t, args|
     raise "arguments: [project*,testcase,tag,execution]" if args.empty?
-    rm Dir.glob(Cutara::ROOT+'/*.feature'), :force => true   
+    rm Dir.glob(Cutara::ROOT+'/*.feature'), :force => true
     unless File.exist?(Cutara::SUPPORT+"/tarantula.yml")
       mkdir_p(Cutara::SUPPORT) unless File.exists?(Cutara::SUPPORT) # including ROOT dir
       cp "#{Cutara::EXECUTION}/support/tarantula.yml", Cutara::SUPPORT

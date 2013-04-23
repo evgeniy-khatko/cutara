@@ -52,7 +52,7 @@ end
 
 	post '/exec' do		
 		content_type :json
-    execute "bundle exec rake cutara:exec[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_tag']}\",\"#{params['tarantula_execution']}\"]"
+    execute "bundle exec rake cutara:exec_html_output[\"#{params['tarantula_project']}\",\"#{params['tarantula_test']}\",\"#{params['tarantula_tag']}\",\"#{params['tarantula_execution']}\"]"
     return {:result => 'ok'}.to_json		
 	end
 
@@ -86,6 +86,8 @@ end
     exit_status = nil
     Open3.popen2e(cmd){|i,oe,t|
       output = oe.read
+      puts "!!!!!!!!!!11"
+      puts output
       exit_status = t.value
     }
     if !html_output or exit_status != 0

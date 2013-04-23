@@ -116,5 +116,20 @@ module Cutara
       res = current_page.send t_name.to_select, find_in.to_label.to_sym, :row => col_num.to_i
       res.text.should =~ /#{check_value}/
     end
+
+    def remember_as(var, res)
+      case
+      when(res.respond_to? :text)
+        instance_variable_set("@#{var.to_label}", res.text)
+      when(res.respond_to? :value)
+        instance_variable_set("@#{var.to_label}", res.value)
+      else
+        instance_variable_set("@#{var.to_label}", res.to_s)
+      end
+    end
+
+    def recall(var)
+      instance_variable_get("@#{var.to_label}")
+    end
   end
 end

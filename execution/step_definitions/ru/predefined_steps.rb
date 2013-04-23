@@ -17,14 +17,7 @@ end
 
 Допустим(/^результат запомнить как "(.*?)"$/) do |arg1|
   res = PageObjectWrapper.current_result
-  case
-  when(res.respond_to? :text)
-    instance_variable_set("@#{arg1.to_label}", res.text)
-  when(res.respond_to? :value)
-    instance_variable_set("@#{arg1.to_label}", res.value)
-  else
-    instance_variable_set("@#{arg1.to_label}", res.to_s)
-  end
+  remember_as(arg1, res)
 end
 
 Допустим /^на форме "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
@@ -44,11 +37,11 @@ end
 end
 
 Допустим(/^"(.*?)" равно "(.*?)"$/) do |arg1, arg2|
-  instance_variable_get("@#{arg1.to_label}").should eq arg2
+  recall(arg1).should eq arg2
 end
 
 Допустим(/^"(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
-  instance_variable_get("@#{arg1.to_label}").should =~ /#{arg2}/
+  recall(arg1).should =~ /#{arg2}/
 end
 
 Допустим /^на странице ввести "(.*?)"$/ do |arg1|
@@ -106,7 +99,13 @@ end
 end
 
 Допустим(/^нажать на ячейку "(.*?)"$/) do |arg1|
-  PageObjectWrapper.current_result[arg1.to_label.to_sym].click
+  res = PageObjectWrapper.current_result
+  case
+  when(res.is_a? Watir::TableCell)
+    res.click
+  when(res.is_a? Hash)
+    res[arg1.to_label.to_sym].click
+  end
 end
 
 Допустим(/^текст ячейки "(.*?)" равен "(.*?)"$/) do |arg1, arg2|

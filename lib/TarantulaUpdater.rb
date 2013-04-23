@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "active_support/core_ext/hash"
 require 'httparty'
 require 'cutara'
