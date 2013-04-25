@@ -22,7 +22,7 @@ namespace "cutara" do
     out.keys.sort.each{ |file| 
       sent = "#{out[file].join("\n")}" 
       if RUBY_PLATFORM == 'i386-mingw32'
-        sent = sent.encode "cp1251"
+        sent = sent.encode "utf-8"
       end
       puts sent
     }
