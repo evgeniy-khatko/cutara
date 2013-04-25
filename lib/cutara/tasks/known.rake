@@ -19,6 +19,12 @@ namespace "cutara" do
         }
       end
     }
-    out.keys.sort.each{ |file| puts "#{out[file].join("\n")}" }
+    out.keys.sort.each{ |file| 
+      sent = "#{out[file].join("\n")}" 
+      if RUBY_PLATFORM == 'i386-mingw32'
+        sent = sent.encode "cp1251"
+      end
+      puts sent
+    }
   end
 end
