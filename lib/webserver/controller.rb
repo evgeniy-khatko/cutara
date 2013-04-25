@@ -86,8 +86,6 @@ end
     exit_status = nil
     Open3.popen2e(cmd){|i,oe,t|
       output = oe.read
-      puts "!!!!!!!!!!11"
-      puts output
       exit_status = t.value
     }
     if !html_output or exit_status != 0
