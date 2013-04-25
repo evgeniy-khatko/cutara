@@ -28,7 +28,6 @@ Gem::Specification.new do |gem|
     gem.add_dependency "win32-process"
     gem.add_dependency "win32-open3-19"
   end
-	gem.add_development_dependency "debugger"
 	gem.add_development_dependency "magic_encoding"
 
   gem.files         = `git ls-files`.split($/)
