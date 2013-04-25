@@ -25,7 +25,7 @@ namespace "cutara" do
     end
     Cutara::TarantulaUpdater.config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
     query = {}
-    args.each{ |k,v| query[k.to_s]=v.force_encoding("utf-8") }
+    args.each{ |k,v| query[k.to_s]=v.force_encoding("utf-8") unless v.nil?}
     resp = Cutara::TarantulaUpdater.get_tests(query)
     resp = REXML::Document.new resp.body
     resp.elements.each('test/test') do |test|

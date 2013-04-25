@@ -21,7 +21,7 @@ namespace "cutara" do
     }
     out.keys.sort.each{ |file| 
       sent = "#{out[file].join("\n")}" 
-      puts sent.force_encoding("utf-8")
+      puts sent.force_encoding("utf-8") unless sent.nil?
     }
   end
 end
