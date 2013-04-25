@@ -88,7 +88,7 @@ end
       output = oe.read
       exit_status = t.value
     }
-    if !html_output or exit_status != 0
+    if !html_output
       output = html_template(output.gsub("\n","</br>")) 
     end
     result = File.new("#{File.dirname(__FILE__)}/public/result.html","w+")
