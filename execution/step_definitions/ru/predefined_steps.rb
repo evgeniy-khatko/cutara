@@ -102,9 +102,9 @@ end
   res = PageObjectWrapper.current_result
   case
   when(res.is_a? Watir::TableCell)
-    res.click
+    if res.link.exist? then res.link.click else res.click end
   when(res.is_a? Hash)
-    res[arg1.to_label.to_sym].click
+    if res[arg1.to_label.to_sym].link.exist? then res[arg1.to_label.to_sym].link.click else res[arg1.to_label.to_sym].click end
   end
 end
 
