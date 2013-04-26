@@ -14,8 +14,8 @@ namespace "cutara" do
                                           :execution => exec
                                           )
     Rake::Task["cutara:build"].execute
-    ENV['project'] = proj.force_encoding("utf-8")
-    ENV['execution'] = exec.force_encoding("utf-8")
+    ENV['project'] = proj
+    ENV['execution'] = exec
     system "cucumber -b #{Cutara::ROOT} -r #{FORMATTER} -r #{Cutara::ROOT} -f Cucumber::Formatter::CustomTarantulaFormatter"
   end
 

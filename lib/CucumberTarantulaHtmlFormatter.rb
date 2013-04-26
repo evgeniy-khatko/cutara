@@ -34,13 +34,19 @@ module Cucumber
       end
 
       def after_features(features)
+        #############################################
+        result = 'Tarantula response undefined'
+        begin
+          result = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
+        rescue Exception => e
+          result = e.message
+        end
+        @builder << "<p>#{result}</p>"
+        #############################################
         print_stats(features)
         @builder << '</div>'
         @builder << '</body>'
         @builder << '</html>'
-        #############################################
-        resp = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
-        #############################################
       end
 
       def before_feature(feature)
@@ -131,7 +137,13 @@ module Cucumber
           if @in_background
             message += " !INSIDE BACKGROUND!"
           end
-          resp = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, @scenario_index, "FAILED", message)
+          result = 'Tarantula response undefined'
+          begin
+            result = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
+          rescue Exception => e
+            result = e.message
+          end
+          @builder << "<p>#{result}</p>"
           #############################################
         end
         if @outline_row
@@ -161,7 +173,13 @@ module Cucumber
           message += " !INSIDE BACKGROUND!"
           position = 1
         end
-        resp = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, position, result, message)
+        result = 'Tarantula response undefined'
+        begin
+          result = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
+        rescue Exception => e
+          result = e.message
+        end
+        @builder << "<p>#{result}</p>"
         #############################################
       end
     end

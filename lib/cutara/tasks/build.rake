@@ -27,7 +27,7 @@ namespace "cutara" do
     query = {}
     args.each{ |k,v| query[k.to_s]=v.force_encoding("utf-8") unless v.nil?}
     resp = Cutara::TarantulaUpdater.get_tests(query)
-    resp = REXML::Document.new resp.body
+    resp = REXML::Document.new resp
     resp.elements.each('test/test') do |test|
       title = test.elements['title'].text
       puts ">>>>>>>>>>> Got feature: #{title} <<<<<<<<<<<<"

@@ -22,7 +22,7 @@ module Cutara
       }
       response = self.post(@config["server"]+'/api/get_scenarios', params)
       raise "TARANTULA RESPONSE: " + response.body.to_s unless response.code == 200
-      response
+      response.body.to_s
     end
 
     def self.update_testcase_step(project, execution, testcase, step_position, result, comment)
@@ -40,8 +40,8 @@ module Cutara
         :body => body
       }
       response = self.post(@config["server"]+'/api/update_testcase_step', params)
-      raise response.body unless response.code == 200
-      response
+      raise "TARANTULA RESPONSE: " + response.body.to_s unless response.code == 200
+      response.body.to_s
     end
 
     def self.update_testcase_duration(project, execution, testcase, duration)
@@ -57,8 +57,8 @@ module Cutara
         :body => body
       }
       response = self.post(@config["server"]+'/api/update_testcase_duration', params)
-      raise response.body unless response.code == 200
-      response
+      raise "TARANTULA RESPONSE: " + response.body.to_s unless response.code == 200
+      response.body.to_s
     end
   end
 end
