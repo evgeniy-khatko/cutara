@@ -23,6 +23,7 @@ module Cucumber
         @scenario_exceptions = []
         @scenario_undefined = false
         @scenario_updated = false
+        @feature_result = 'PASSED'
         Cutara::TarantulaUpdater.config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
         #############################################
       end
@@ -31,7 +32,7 @@ module Cucumber
         print_summary(features) unless @options[:autoformat]
         @io.puts(format_duration_simple(features.duration)) if features && features.duration
         #############################################
-        resp = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
+        resp = Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration),@feature_result) if features && features.duration
         @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
         #############################################
       end
@@ -118,10 +119,12 @@ module Cucumber
         position = @scenario_index
         if not @scenario_exceptions.empty?
           result = "FAILED"
+          @feature_result = 'FAILED'
           message = @scenario_exceptions.inspect
           @scenario_updated = true
         elsif @scenario_undefined
           result = "NOT_IMPL"
+          @feature_result = 'NOT_IMPL'
           message = "Undefined cucumber sentence found"
           @scenario_updated = true
         end

@@ -81,7 +81,6 @@ end
 	end
 
   def execute(cmd, html_output=false)
-    puts cmd
     output = ''
     exit_status = nil
     Open3.popen2e(cmd){|i,oe,t|

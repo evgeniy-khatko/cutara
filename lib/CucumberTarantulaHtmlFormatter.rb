@@ -29,19 +29,20 @@ module Cucumber
         @scenario_exceptions = []
         @scenario_undefined = false
         @scenario_updated = false
+        @feature_result = 'PASSED'
         Cutara::TarantulaUpdater.config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
         #############################################
       end
 
       def after_features(features)
         #############################################
-        result = 'Tarantula response undefined'
+        response = 'Tarantula response undefined'
         begin
-          result = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
+          response = Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration), @feature_result) if features && features.duration
         rescue Exception => e
-          result = e.message
+          response = e.message
         end
-        @builder << "<p>#{result}</p>"
+        @builder << "<p><i>#{response}</i></p>"
         #############################################
         print_stats(features)
         @builder << '</div>'
@@ -104,6 +105,11 @@ module Cucumber
           @scenario_exceptions << exception
           #############################################
         end
+        if status == :undefined
+          #############################################
+          @scenario_undefined = true
+          #############################################
+        end
         if status != :failed && @in_background ^ background
           @hide_this_step = true
           return
@@ -131,19 +137,17 @@ module Cucumber
           else
             set_scenario_color_failed
           end
+        end
+        if table_row.exception && !@exceptions.include?(table_row.exception)
           #############################################
           @scenario_updated = true
           message = table_row.exception.inspect
           if @in_background
             message += " !INSIDE BACKGROUND!"
           end
-          result = 'Tarantula response undefined'
-          begin
-            result = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
-          rescue Exception => e
-            result = e.message
-          end
-          @builder << "<p>#{result}</p>"
+          response = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, @scenario_index, "FAILED", message)
+          @feature_result = "FAILED"
+          @builder << "<p><i>#{response}</i></p>"
           #############################################
         end
         if @outline_row
@@ -156,16 +160,17 @@ module Cucumber
       def after_steps(steps)
         @builder << '</ol>'
         #############################################
-        return if @scenario_updated
         result = "PASSED"
         message = ''
         position = @scenario_index
         if not @scenario_exceptions.empty?
           result = "FAILED"
+          @feature_result = "FAILED"
           message = @scenario_exceptions.inspect
           @scenario_updated = true
         elsif @scenario_undefined
           result = "NOT_IMPL"
+          @feature_result = "NOT_IMPL"
           message = "Undefined cucumber sentence found"
           @scenario_updated = true
         end
@@ -173,13 +178,13 @@ module Cucumber
           message += " !INSIDE BACKGROUND!"
           position = 1
         end
-        result = 'Tarantula response undefined'
+        response = 'Tarantula response undefined'
         begin
-          result = Cutara::TarantulaUpdater.update_testcase_duration(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration)) if features && features.duration
+          response = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, position, result, message)
         rescue Exception => e
-          result = e.message
+          response = e.message
         end
-        @builder << "<p>#{result}</p>"
+        @builder << "<p><i>#{response}</i></p>"
         #############################################
       end
     end
