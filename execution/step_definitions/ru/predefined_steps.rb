@@ -252,3 +252,50 @@ end
 Допустим /^в таблице "(.*?)" был выбран элемент колонки "(.*?)" из "(.*?)" строки$/ do |arg1, arg2, arg3|
   select_by_row_num(arg1, arg2, arg3)
 end
+
+Допустим(/^в новой вкладке открывается страница "(.*?)"$/) do |arg1|
+  PageObjectWrapper.browser.windows.last.use
+  PageObjectWrapper.current_page? arg1.to_label.to_sym
+end
+
+Допустим(/^в "(.*?)" строке колонки "(.*?)" таблицы "(.*?)" содержится значение "(.*?)"$/) do |arg1, arg2, arg3, arg4|
+  select_by_row_num_validator(arg1, arg2, arg3, recall(arg4))
+end
+
+Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" равным "(.*?)" содержится значение "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
+  complex_select_validator(arg1, arg2, arg3, arg4, recall(arg5))
+end
+
+Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" похожим на "(.*?)" содержится значение "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
+  complex_select_regexp_validator(arg1, arg2, arg3, arg4, recall((arg5))
+end
+
+Допустим /^на форме "(.*?)" ввести значение "(.*?)"$/ do |arg1, arg2|
+  feed_set(arg1, recall(arg2))
+end
+
+Допустим /^в поле "(.*?)" ввести значение "(.*?)"$/ do |arg1, arg2|
+  feed_field(arg1, recall(arg2))
+end
+
+Допустим(/^значение поля "(.*?)" равно значению "(.*?)"$/) do |arg1, arg2|
+  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should eq recall(arg2)
+end
+
+Допустим(/^значение поля "(.*?)" содержит значение "(.*?)"$/) do |arg1, arg2|
+  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should =~ /#{recall(arg2)}/
+end
+
+Допустим(/^текст ячейки "(.*?)" равен значению "(.*?)"$/) do |arg1, arg2|
+  res = PageObjectWrapper.current_result
+  case
+  when(res.is_a? Watir::TableCell)
+    res.text.should eq recall(arg2)
+  when(res.is_a? Hash)
+    res[arg1.to_label.to_sym].text.should eq recall(arg2)
+  end
+end
+
+Допустим /^в поле "(.*?)" введено значение "(.*?)"$/ do |arg1, arg2|
+  feed_field(arg1, recall(arg2))
+end

@@ -59,6 +59,10 @@ end
   APP.add_input arg1.to_label.to_sym
 end
 
+Допустим /^в поле "(.*?)" введено значение "(.*?)"$/ do |arg1, arg2|
+  APP.add_input arg1.to_label.to_sym
+end
+
 Допустим /^на странице ввести "(.*?)"$/ do |arg1|
   APP.add_menu arg1.to_label.to_sym
 end
@@ -74,6 +78,15 @@ end
 Допустим /^в поле "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
   APP.add_input arg1.to_label.to_sym
 end
+
+Допустим /^на форме "(.*?)" ввести значение "(.*?)"$/ do |arg1, arg2|
+  APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
+end
+
+Допустим /^в поле "(.*?)" ввести значение "(.*?)"$/ do |arg1, arg2|
+  APP.add_input arg1.to_label.to_sym
+end
+
 
 # press_steps
 Допустим /^была нажата ссылка "(.*?)"$/ do |arg1|
@@ -179,6 +192,10 @@ end
   APP.add_page arg1.to_label.to_sym
 end
 
+Допустим(/^в новой вкладке открывается страница "(.*?)"$/) do |arg1|
+  APP.add_page arg1.to_label.to_sym
+end
+
 Допустим(/^проверка "(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
   APP.add_validator arg1.to_label.to_sym
 end
@@ -207,6 +224,21 @@ end
   t.add_column arg1.to_label.to_sym
 end
 
+Допустим(/^в "(.*?)" строке колонки "(.*?)" таблицы "(.*?)" содержится значение "(.*?)"$/) do |arg1, arg2, arg3, arg4|
+  args = arg2.to_params.keys
+  APP.add_action arg1.to_label.to_sym, args
+end
+
+Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" равным "(.*?)" содержится значение "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
+  t = APP.add_table arg2.to_label.to_sym
+  t.add_column arg1.to_label.to_sym
+end
+
+Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" похожим на "(.*?)" содержится значение "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
+  t = APP.add_table arg2.to_label.to_sym
+  t.add_column arg1.to_label.to_sym
+end
+
 Допустим(/^открывается диалог "(.*?)"$/) do |arg1|
   APP.add_page arg1.to_label.to_sym
 end
@@ -222,6 +254,15 @@ end
   APP.add_input arg1.to_label.to_sym
 end
 
+Допустим(/^значение поля "(.*?)" равно значению "(.*?)"$/) do |arg1, arg2|
+    APP.add_input arg1.to_label.to_sym
+end
+
+Допустим(/^значение поля "(.*?)" содержит значение "(.*?)"$/) do |arg1, arg2|
+  APP.add_input arg1.to_label.to_sym
+end
+
+
 Допустим(/^результат запомнить как "(.*?)"$/) do |arg1|
 end
 
@@ -232,6 +273,10 @@ end
 end
 
 Допустим(/^текст ячейки "(.*?)" равен "(.*?)"$/) do |arg1, arg2|
+  APP.add_column arg1.to_label.to_sym
+end
+
+Допустим(/^текст ячейки "(.*?)" равен значению "(.*?)"$/) do |arg1, arg2|
   APP.add_column arg1.to_label.to_sym
 end
 
