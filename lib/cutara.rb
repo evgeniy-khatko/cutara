@@ -67,6 +67,10 @@ class String
     self.to_label+'_open'
   end
 
+  def is_variable?
+    self =~ /^_/
+  end
+
   def to_params
     params = {}
     i = 0

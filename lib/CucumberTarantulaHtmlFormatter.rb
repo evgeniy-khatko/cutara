@@ -141,7 +141,7 @@ module Cucumber
         if table_row.exception && !@exceptions.include?(table_row.exception)
           #############################################
           @scenario_updated = true
-          message = table_row.exception.inspect
+          message = table_row.exception.inspect.force_encoding("utf-8")
           if @in_background
             message += " !INSIDE BACKGROUND!"
           end
@@ -166,7 +166,7 @@ module Cucumber
         if not @scenario_exceptions.empty?
           result = "FAILED"
           @feature_result = "FAILED"
-          message = @scenario_exceptions.inspect
+          message = @scenario_exceptions.inspect.force_encoding("utf-8")
           @scenario_updated = true
         elsif @scenario_undefined
           result = "NOT_IMPL"
