@@ -52,6 +52,7 @@ module Cutara
     def select_row(t_name, query)
       sanitized_query = {}
       query.each{ |k,v| 
+        v = recall(v) if v.is_variable?
         if k == '#'
           sanitized_query[:number] = v.to_i
         else

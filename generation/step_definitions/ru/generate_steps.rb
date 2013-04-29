@@ -252,3 +252,7 @@ end
 Допустим(/^проверить "(.*?)"$/) do |arg1|
   APP.add_validator arg1.to_label.to_sym
 end
+
+Допустим(/^в новой вкладке открывается страница "(.*?)"$/) do |arg1|
+  APP.add_page arg1.to_label.to_sym
+end

@@ -29,19 +29,23 @@ end
 end
 
 Допустим(/^значение поля "(.*?)" равно "(.*?)"$/) do |arg1, arg2|
-  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should eq arg2
+  value = (arg2.is_variable?)? recall(arg2) : arg2
+  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should eq value
 end
 
 Допустим(/^значение поля "(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
-  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should =~ /#{arg2}/
+  value = (arg2.is_variable?)? recall(arg2) : arg2
+  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should =~ /#{value}/
 end
 
 Допустим(/^"(.*?)" равно "(.*?)"$/) do |arg1, arg2|
-  recall(arg1).should eq arg2
+  value = (arg2.is_variable?)? recall(arg2) : arg2
+  recall(arg1).should eq value
 end
 
 Допустим(/^"(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
-  recall(arg1).should =~ /#{arg2}/
+  value = (arg2.is_variable?)? recall(arg2) : arg2
+  recall(arg1).should =~ /#{value}/
 end
 
 Допустим /^на странице ввести "(.*?)"$/ do |arg1|
@@ -110,11 +114,12 @@ end
 
 Допустим(/^текст ячейки "(.*?)" равен "(.*?)"$/) do |arg1, arg2|
   res = PageObjectWrapper.current_result
+  value = (arg2.is_variable?)? recall(arg2) : arg2
   case
   when(res.is_a? Watir::TableCell)
-    res.text.should eq arg2
+    res.text.should eq value
   when(res.is_a? Hash)
-    res[arg1.to_label.to_sym].text.should eq arg2
+    res[arg1.to_label.to_sym].text.should eq value
   end
 end
 
@@ -129,23 +134,28 @@ end
 end
 
 Допустим(/^"(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
-  run_action_validator(arg1, arg2)
+  value = (arg2.is_variable?)? recall(arg2) : arg2
+  run_action_validator(arg1, value)
 end
 
 Допустим(/^выполнение "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
-  run_action_with_args_validator(arg1, arg2, arg3)
+  value = (arg3.is_variable?)? recall(arg3) : arg3
+  run_action_with_args_validator(arg1, arg2, value)
 end
 
 Допустим /^в таблице "(.*?)" выбрать ячейку колонки "(.*?)" с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  complex_select(arg1, arg2, arg3, arg4)
+  value = (arg4.is_variable?)? recall(arg4) : arg4
+  complex_select(arg1, arg2, arg3, value)
 end
 
 Допустим /^в таблице "(.*?)" выбрать ячейку с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
-  complex_select_regexp(arg1, arg2, arg2, arg3)
+  value = (arg3.is_variable?)? recall(arg3) : arg3
+  complex_select_regexp(arg1, arg2, arg2, value)
 end
 
 Допустим /^в таблице "(.*?)" выбрать ячейку с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
-  complex_select(arg1, arg2, arg2, arg3)
+  value = (arg3.is_variable?)? recall(arg3) : arg3
+  complex_select(arg1, arg2, arg2, value)
 end
 
 Допустим /^в таблице "(.*?)" выбрать элемент колонки "(.*?)"$/ do |arg1, arg2|
@@ -157,15 +167,20 @@ end
 end
 
 Допустим(/^в "(.*?)" строке колонки "(.*?)" таблицы "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4|
-  select_by_row_num_validator(arg1, arg2, arg3, arg4)
+  value = (arg4.is_variable?)? recall(arg4) : arg4
+  select_by_row_num_validator(arg1, arg2, arg3, value)
 end
 
 Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" равным "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
-  complex_select_validator(arg1, arg2, arg3, arg4, arg5)
+  value1 = (arg4.is_variable?)? recall(arg4) : arg4
+  value2 = (arg5.is_variable?)? recall(arg5) : arg5
+  complex_select_validator(arg1, arg2, arg3, value1, value2)
 end
 
 Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" похожим на "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
-  complex_select_regexp_validator(arg1, arg2, arg3, arg4, arg5)
+  value1 = (arg4.is_variable?)? recall(arg4) : arg4
+  value2 = (arg5.is_variable?)? recall(arg5) : arg5
+  complex_select_regexp_validator(arg1, arg2, arg3, value1, value2)
 end
 
 Допустим(/^открывается страница "(.*?)"$/) do |arg1|
@@ -197,7 +212,8 @@ end
 end
 
 Допустим /^в поле "(.*?)" введено "(.*?)"$/ do |arg1, arg2|
-  feed_field(arg1, arg2)
+  value = (arg2.is_variable?)? recall(arg2) : arg2
+  feed_field(arg1, value)
 end
 
 Допустим /^открыта страница "(.*?)"$/ do |arg1|
@@ -230,19 +246,23 @@ end
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка колонки "(.*?)" с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  complex_select(arg1, arg2, arg3, arg4)
+  value = (arg4.is_variable?)? recall(arg4) : arg4
+  complex_select(arg1, arg2, arg3, value)
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка колонки "(.*?)" с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  complex_select_regexp(arg1, arg2, arg3, arg4)
+  value = (arg4.is_variable?)? recall(arg4) : arg4
+  complex_select_regexp(arg1, arg2, arg3, value)
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
-  complex_select_regexp(arg1, arg2, arg2, arg3)
+  value = (arg3.is_variable?)? recall(arg3) : arg3
+  complex_select_regexp(arg1, arg2, arg2, value)
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
-  complex_select(arg1, arg2, arg2, arg3)
+  value = (arg3.is_variable?)? recall(arg3) : arg3
+  complex_select(arg1, arg2, arg2, value)
 end
 
 Допустим /^в таблице "(.*?)" был выбран элемент колонки "(.*?)"$/ do |arg1, arg2|
@@ -251,4 +271,9 @@ end
 
 Допустим /^в таблице "(.*?)" был выбран элемент колонки "(.*?)" из "(.*?)" строки$/ do |arg1, arg2, arg3|
   select_by_row_num(arg1, arg2, arg3)
+end
+
+Допустим(/^в новой вкладке открывается страница "(.*?)"$/) do |arg1|
+  PageObjectWrapper.browser.windows.last.use
+  PageObjectWrapper.current_page? arg1.to_label.to_sym
 end
