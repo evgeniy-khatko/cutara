@@ -120,7 +120,7 @@ module Cutara
 
     def remember_as(var, res)
       case
-      when res.is_a Watir::TableCell
+      when(res.is_a? Watir::TableCell)
         instance_variable_set("@#{var.to_label}", res.text)
       when(res.respond_to? :value)
         instance_variable_set("@#{var.to_label}", res.value)

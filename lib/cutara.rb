@@ -68,7 +68,7 @@ class String
   end
 
   def is_variable?
-    self =~ /^_/
+    /^_/ === self
   end
 
   def to_params

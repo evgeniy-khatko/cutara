@@ -25,7 +25,8 @@ end
 end
 
 Допустим /^в поле "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
-  feed_field(arg1, arg2)
+  value = (arg2.is_variable?)? recall(arg2) : arg2
+  feed_field(arg1, value)
 end
 
 Допустим(/^значение поля "(.*?)" равно "(.*?)"$/) do |arg1, arg2|
