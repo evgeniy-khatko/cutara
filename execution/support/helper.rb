@@ -64,6 +64,12 @@ module Cutara
       raise "table \"#{t_name}\" does not have row with parameters #{query.inspect}" if row.nil?
     end
 
+    def select_rows(t_name, queries)
+      queries.each{ |query| 
+        select_row(t_name, query)
+      }
+    end
+
     def complex_select(t_name, find_in, find_by, value)
       current_page = PageObjectWrapper.current_page
       current_page.send t_name.to_select, find_in.to_label.to_sym, { find_by.to_label.to_sym => value }

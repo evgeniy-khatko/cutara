@@ -10,8 +10,8 @@ namespace "cutara" do
     mkdir_p(Cutara::PAGES) unless File.exists?(Cutara::PAGES)
     mkdir_p(Cutara::STEPS) unless File.exists?(Cutara::STEPS)
     cp "#{Cutara::EXECUTION}/support/env.rb", Cutara::SUPPORT unless File.exists? "#{Cutara::SUPPORT}/env.rb"
-    cp "#{Cutara::EXECUTION}/support/helper.rb", Cutara::SUPPORT unless File.exists? "#{Cutara::SUPPORT}/helper.rb"
-    cp "#{Cutara::EXECUTION}/step_definitions/#{@lang.to_s}/predefined_steps.rb", Cutara::STEPS unless File.exists? "#{Cutara::STEPS}/predefined_steps.rb"
+    cp "#{Cutara::EXECUTION}/support/helper.rb", Cutara::SUPPORT #unless File.exists? "#{Cutara::SUPPORT}/helper.rb"
+    cp "#{Cutara::EXECUTION}/step_definitions/#{@lang.to_s}/predefined_steps.rb", Cutara::STEPS #unless File.exists? "#{Cutara::STEPS}/predefined_steps.rb"
   end
 
   desc "Downloads cucumber scenarios from tarantula"

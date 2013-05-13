@@ -103,6 +103,23 @@ end
   select_row(arg1, table.hashes.first)
 end
 
+Допустим(/^таблица "(.*?)" не содержит "(.*?)"$/) do |arg1, arg2|
+  found = false
+  page = PageObjectWrapper.current_page
+  table = page.send arg1.to_label.to_sym
+  raise "#{page.label_value} does not have table #{arg1}" unless table.present?
+  table.rows.each{ |row| 
+    row.cells.each{ |cell| 
+      found = true if cell.text =~ /#{arg2}/
+    }
+  }
+  found.should eq false
+end
+
+Допустим(/^в таблице "(.*?)" есть строки:$/) do |arg1, table|
+  select_rows(arg1, table.hashes)
+end
+
 Допустим(/^нажать на ячейку "(.*?)"$/) do |arg1|
   res = PageObjectWrapper.current_result
   case
@@ -277,4 +294,8 @@ end
 Допустим(/^в новой вкладке открывается страница "(.*?)"$/) do |arg1|
   PageObjectWrapper.browser.windows.last.use
   PageObjectWrapper.current_page? arg1.to_label.to_sym
+end
+
+Допустим(/^подождать "(.*?)" минут\(ы\)$/) do |arg1|
+  sleep arg1.to_f*60
 end

@@ -19,7 +19,7 @@ PageObjectWrapper.define_page :testovye_elementy do
 
 	table :countries do 
 		locator :index => 0
-		header [:country, :total_area, :land_area] 
+		header [:country, :total_area, :land_area, :link] 
 	end
 
 	action :znachenie_teksta_krasnogo_tsveta do 
