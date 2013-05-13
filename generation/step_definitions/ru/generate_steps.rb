@@ -190,6 +190,7 @@ end
 Допустим(/^выполнение "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
   args = arg2.to_params.keys
   APP.add_action arg1.to_label.to_sym, args
+end
 
 Допустим(/^в "(.*?)" строке колонки "(.*?)" таблицы "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4|
   t = APP.add_table arg3.to_label.to_sym
@@ -257,7 +258,7 @@ end
 end
 
 Допустим(/^таблица "(.*?)" не содержит "(.*?)"$/) do |arg1, arg2|
-  t = APP.add_table arg1.to_label.to_sym
+  APP.add_table arg1.to_label.to_sym
 end
 
 Допустим(/^в таблице "(.*?)" есть строки:$/) do |arg1, table|
