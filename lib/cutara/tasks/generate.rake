@@ -1,11 +1,15 @@
 require 'cutara'
+include FileUtils::Verbose
+@lang = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))["language"] if File.exist? Cutara::SUPPORT+'/tarantula.yml'
 
 namespace "cutara" do
   desc "Generates page_objects according to page_object_wrapper gem"
   task :generate do
     raise "#{Cutara::ROOT} not found, please run rake cutara:build before running this task" unless File.exist? Cutara::ROOT
-    generation_dir = File.dirname(__FILE__)+"/../../../generation"
-    result = `cucumber #{Cutara::ROOT} -r #{generation_dir} -f progress`
+    raise "#{Cutara::STEPS} not found, please run rake cutara:build before running this task" unless File.exist? Cutara::STEPS
+    complex_steps_files = Dir.glob("#{Cutara::STEPS}/*.rb").delete_if{ |path| path =~ /predifined_steps/ }
+    cp complex_steps_files, Cutara::TMP
+    result = `cucumber #{Cutara::ROOT} -r #{Cutara::GENERATION} -f progress`
     puts result
   end
 end

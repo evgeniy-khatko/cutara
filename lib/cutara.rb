@@ -5,8 +5,9 @@ module Cutara
   PAGES = ROOT + "/pages"
   STEPS = ROOT + "/step_definitions"
   SUPPORT = ROOT + "/support"
-  EXECUTION = File.dirname(__FILE__)+"/../execution"
+  EXECUTION = File.dirname(__FILE__)+"/../execution/"
   GENERATION = File.dirname(__FILE__)+"/../generation/"
+  TMP = File.dirname(__FILE__)+"/../tmp/"
   WEBSERVER = File.dirname(__FILE__)+"/../lib/webserver"
 
   class ExecutionStepError < StandardError; end
