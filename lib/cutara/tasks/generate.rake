@@ -7,7 +7,7 @@ namespace "cutara" do
   task :generate do
     raise "#{Cutara::ROOT} not found, please run rake cutara:build before running this task" unless File.exist? Cutara::ROOT
     raise "#{Cutara::STEPS} not found, please run rake cutara:build before running this task" unless File.exist? Cutara::STEPS
-    complex_steps_files = Dir.glob("#{Cutara::STEPS}/*.rb").delete_if{ |path| path =~ /predifined_steps/ }
+    complex_steps_files = Dir.glob("#{Cutara::STEPS}/*.rb").delete_if{ |path| path =~ /predefined_steps/ }
     cp complex_steps_files, Cutara::GENERATION
     result = `cucumber #{Cutara::ROOT} -r #{Cutara::GENERATION} -f progress`
     puts result
@@ -17,7 +17,7 @@ namespace "cutara" do
   task :generate_debug do
     raise "#{Cutara::ROOT} not found, please run rake cutara:build before running this task" unless File.exist? Cutara::ROOT
     raise "#{Cutara::STEPS} not found, please run rake cutara:build before running this task" unless File.exist? Cutara::STEPS
-    complex_steps_files = Dir.glob("#{Cutara::STEPS}/*.rb").delete_if{ |path| path =~ /predifined_steps/ }
+    complex_steps_files = Dir.glob("#{Cutara::STEPS}/*.rb").delete_if{ |path| path =~ /predefined_steps/ }
     cp complex_steps_files, Cutara::GENERATION
     result = `cucumber #{Cutara::ROOT} -r #{Cutara::GENERATION} -b`
     puts result
