@@ -32,8 +32,8 @@ require GENERATION + 'support/Validator'
     end
 
     def add_menu label
-      @current_page.inputs.each{ |i| i.menus << label; i.menus.uniq! }
-      @current_page.esets.each{ |e| e.menus << label; e.menus.uniq! }
+      @current_page.inputs.each{ |i| (i.menus << label).uniq! }
+      @current_page.esets.each{ |e| (e.menus << label).uniq! }
     end
 
     def add_eset label, menu

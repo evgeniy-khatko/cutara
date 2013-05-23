@@ -19,6 +19,7 @@ LANG = config["language"]
 TARANTULA_HOST = config["server"]
 TARANTULA_USER = config["username"]
 TARANTULA_PROJECT = config["project"]
+ENV["cutara_mode"] = 'gui'
 
 Sinatra.register Padrino::Helpers
 configure do

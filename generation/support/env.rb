@@ -19,6 +19,9 @@ at_exit do
         f.close
       end
     end
+    puts
+    puts "# -*- encoding : utf-8 -*-"
+    data = data.gsub("\t","&nbsp;&nbsp;") if ENV["cutara_mode"] == 'gui'
     puts data
   }
 end
