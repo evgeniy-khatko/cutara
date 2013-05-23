@@ -10,7 +10,7 @@ require GENERATION + 'support/PageElement'
 
     def to_snippet
       out = "\telements_set #{@label.inspect} do \n"
-      @menus.each{|menu|
+      @menus.uniq.each{|menu|
         out += "\t\tmenu #{menu.inspect} \n"
       }
       out += "\tend\n\n"
