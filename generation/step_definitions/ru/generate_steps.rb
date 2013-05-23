@@ -242,7 +242,7 @@ end
   t = APP.add_table arg1.to_label.to_sym
   raise "search criteria: #{table.raw.inspect} has more that 2 rows" if table.raw.length != 2
   table.hashes.first.keys.each{ |column_name|
-    t.add_column column_name.to_label.to_sym
+    t.add_column column_name.to_label.to_sym unless column_name == '#'
   }
 end
 
