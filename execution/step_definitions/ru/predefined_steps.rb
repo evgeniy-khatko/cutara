@@ -99,7 +99,7 @@ end
 
 Допустим(/^в таблице "(.*?)" есть строка:$/) do |arg1, table|
   # table is a Cucumber::Ast::Table
-  raise "search criteria: #{table.raw.inspect} has more that 2 rows" if table.raw.length != 2
+  raise "search criteria: #{table.raw.inspect} has more than 2 rows" if table.raw.length != 2
   select_row(arg1, table.hashes.first)
 end
 
@@ -124,7 +124,17 @@ end
   res = PageObjectWrapper.current_result
   case
   when(res.is_a? Watir::TableCell)
-    if res.link.exist? then res.link.click else res.click end
+    if res.link.exists? 
+      res.link.click 
+    elsif res.checkbox.exists?
+      res.checkbox.set
+    elsif res.radio.exists?
+      res.radio.set
+    elsif res.button.exist?
+      res.button.click
+    else
+      res.click
+    end
   when(res.is_a? Hash)
     if res[arg1.to_label.to_sym].link.exist? then res[arg1.to_label.to_sym].link.click else res[arg1.to_label.to_sym].click end
   end
