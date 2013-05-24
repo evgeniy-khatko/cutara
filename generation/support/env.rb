@@ -21,7 +21,7 @@ at_exit do
     end
     puts
     puts "# -*- encoding : utf-8 -*-"
-    data = data.gsub("\t","&nbsp;&nbsp;") if ENV["cutara_mode"] == 'gui'
+    data = data.gsub("\t","&nbsp;&nbsp;") if ENV["cutara_mode"] == 'generation'
     puts data
   }
 end
