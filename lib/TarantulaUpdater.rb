@@ -7,7 +7,7 @@ module Cutara
     include HTTParty
 
     @config = nil
-    debug_output $stdout
+    #debug_output $stdout
     headers  'Content-type' => 'application/xml', 'Accept' => 'application/xml' 
     if ENV['http_proxy'] =~ /^http:\/\/(.+):(\d{4})\/?$/
       http_proxy $1, $2
