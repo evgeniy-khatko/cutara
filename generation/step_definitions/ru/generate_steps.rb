@@ -104,19 +104,21 @@ end
 Допустим /^в таблице "(.*?)" была выбрана ячейка колонки "(.*?)" с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3, arg4|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
+  t.add_column arg3.to_label.to_sym
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка колонки "(.*?)" с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3, arg4|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
+  t.add_column arg3.to_label.to_sym
 end
 
-Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
+Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
 
-Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
+Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
@@ -134,6 +136,7 @@ end
 Допустим /^в таблице "(.*?)" выбрать ячейку колонки "(.*?)" с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3, arg4|
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
+  t.add_column arg3.to_label.to_sym
 end
 
 Допустим /^в таблице "(.*?)" выбрать ячейку с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
@@ -155,6 +158,7 @@ end
   t = APP.add_table arg1.to_label.to_sym
   t.add_column arg2.to_label.to_sym
 end
+
 # pagination_steps
 Допустим /^открыта "(.*?)" страница пагинации$/ do |arg1|
   APP.add_pagination
@@ -200,11 +204,13 @@ end
 Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" равным "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
   t = APP.add_table arg2.to_label.to_sym
   t.add_column arg1.to_label.to_sym
+  t.add_column arg3.to_label.to_sym
 end
 
 Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" похожим на "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
   t = APP.add_table arg2.to_label.to_sym
   t.add_column arg1.to_label.to_sym
+  t.add_column arg3.to_label.to_sym
 end
 
 Допустим(/^открывается диалог "(.*?)"$/) do |arg1|
@@ -236,6 +242,7 @@ end
 end
 
 Допустим(/^текст ячейки "(.*?)" запомнить как "(.*?)"$/) do |arg1, arg2|
+  APP.add_column arg1.to_label.to_sym
 end
 
 Допустим(/^в таблице "(.*?)" есть строка:$/) do |arg1, table|
@@ -247,6 +254,7 @@ end
 end
 
 Допустим(/^нажать на ячейку "(.*?)"$/) do |arg1|
+  APP.add_column arg1.to_label.to_sym
 end
 
 Допустим(/^проверить "(.*?)"$/) do |arg1|
