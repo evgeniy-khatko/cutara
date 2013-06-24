@@ -17,4 +17,5 @@ test/version_tmp
 tmp
 chromedriver.log
 features/*
+lib/webserver/public/*
 !features/pages
