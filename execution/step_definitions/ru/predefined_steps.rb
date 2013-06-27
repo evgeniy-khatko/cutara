@@ -310,10 +310,10 @@ end
   sleep arg1.to_f*60
 end
 
-Допустим(/^подтвердить действие$/)
+Допустим(/^подтвердить действие$/) do
   PageObjectWrapper.browser.alert.ok
 end
 
-Допустим(/^отменить действие$/)
+Допустим(/^отменить действие$/) do
   PageObjectWrapper.browser.alert.close
 end
