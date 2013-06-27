@@ -269,3 +269,9 @@ end
 
 Given(/^wait for "(.*?)" min$/) do |arg1|
 end
+
+Given(/^confirm action$/) do
+end
+
+Given(/^dismiss action$/) do
+end

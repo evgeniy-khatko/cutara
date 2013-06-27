@@ -309,3 +309,11 @@ end
 Допустим(/^подождать "(.*?)" минут\(ы\)$/) do |arg1|
   sleep arg1.to_f*60
 end
+
+Допустим(/^подтвердить действие$/)
+  PageObjectWrapper.browser.alert.ok
+end
+
+Допустим(/^отменить действие$/)
+  PageObjectWrapper.browser.alert.close
+end

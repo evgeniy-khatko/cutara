@@ -309,3 +309,11 @@ end
 Given(/^wait for "(.*?)" min$/) do |arg1|
   sleep arg1.to_f*60
 end
+
+Given(/^confirm action$/) do
+  PageObjectWrapper.browser.alert.ok
+end
+
+Given(/^dismiss action$/) do
+  PageObjectWrapper.browser.alert.close
+end

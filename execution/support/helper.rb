@@ -61,7 +61,7 @@ module Cutara
       }
       current_page = PageObjectWrapper.current_page
       row = current_page.send t_name.to_select_row, sanitized_query
-      raise "table \"#{t_name}\" does not have row with parameters #{query.inspect}" if row.nil?
+      raise "table \"#{t_name}\" does not have row with parameters #{sanitized_query.inspect}" if row.nil?
     end
 
     def select_rows(t_name, queries)
