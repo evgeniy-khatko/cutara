@@ -275,3 +275,7 @@ end
 
 Given(/^dismiss action$/) do
 end
+
+Given(/^current page is "(.*?)"$/) do |arg1|
+  APP.add_page arg1.to_label.to_sym
+end

@@ -317,3 +317,7 @@ end
 Given(/^dismiss action$/) do
   PageObjectWrapper.browser.alert.close
 end
+
+Given(/^current page is "(.*?)"$/) do |arg1|
+  (PageObjectWrapper.current_page? arg1.to_label.to_sym).should eq true
+end

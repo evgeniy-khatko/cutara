@@ -317,3 +317,7 @@ end
 Допустим(/^отменить действие$/) do
   PageObjectWrapper.browser.alert.close
 end
+
+Допустим(/^текущая страница - "(.*?)"$/) do |arg1|
+  (PageObjectWrapper.current_page? arg1.to_label.to_sym).should eq true
+end
