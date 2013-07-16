@@ -25,8 +25,7 @@ Given /^fill "(.*?)" form with "(.*?)"$/ do |arg1, arg2|
 end
 
 Given /^fill "(.*?)" field with "(.*?)"$/ do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  feed_field(arg1, value)
+  feed_field(arg1, arg2)
 end
 
 Given(/^"(.*?)" field value equals to "(.*?)"$/) do |arg1, arg2|
@@ -162,28 +161,23 @@ Given(/^cell "(.*?)" text remember as "(.*?)"$/) do |arg1, arg2|
 end
 
 Given(/^"(.*?)" returns "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  run_action_validator(arg1, value)
+  run_action_validator(arg1, arg2)
 end
 
 Given(/^running "(.*?)" with parameters "(.*?)" returns "(.*?)"$/) do |arg1, arg2, arg3|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  run_action_with_args_validator(arg1, arg2, value)
+  run_action_with_args_validator(arg1, arg2, arg3)
 end
 
 Given /^choose a cell of "(.*?)" with "(.*?)" equal to "(.*?)" from table "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  value = (arg3.is_variable?)? recall(arg4) : arg4
-  complex_select(arg4, arg1, arg2, value)
+  complex_select(arg4, arg1, arg2, arg4)
 end
 
 Given /^choose a "(.*?)" cell similar to "(.*?)" from table "(.*?)"$/ do |arg1, arg2, arg3|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  complex_select_regexp(arg3, arg1, arg1, value)
+  complex_select_regexp(arg3, arg1, arg1, arg2)
 end
 
 Given /^choose a "(.*?)" cell equal to "(.*?)" from table "(.*?)"$/ do |arg1, arg2, arg3|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  complex_select(arg3, arg1, arg1, value)
+  complex_select(arg3, arg1, arg1, arg2)
 end
 
 Given /^choose element from column "(.*?)" from table "(.*?)"$/ do |arg1, arg2|
@@ -195,20 +189,15 @@ Given /^choose element from column "(.*?)" and row "(.*?)" from table "(.*?)"$/ 
 end
 
 Given(/^row "(.*?)" column "(.*?)" of table "(.*?)" contains "(.*?)"$/) do |arg1, arg2, arg3, arg4|
-  value = (arg4.is_variable?)? recall(arg4) : arg4
-  select_by_row_num_validator(arg1, arg2, arg3, value)
+  select_by_row_num_validator(arg1, arg2, arg3, arg4)
 end
 
 Given(/^column "(.*?)" of table "(.*?)" where "(.*?)" equals to "(.*?)" contains "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
-  value1 = (arg4.is_variable?)? recall(arg4) : arg4
-  value2 = (arg5.is_variable?)? recall(arg5) : arg5
-  complex_select_validator(arg1, arg2, arg3, value1, value2)
+  complex_select_validator(arg1, arg2, arg3, arg4, arg5)
 end
 
 Given(/^column "(.*?)" of table "(.*?)" where "(.*?)" similar to "(.*?)" contains "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
-  value1 = (arg4.is_variable?)? recall(arg4) : arg4
-  value2 = (arg5.is_variable?)? recall(arg5) : arg5
-  complex_select_regexp_validator(arg1, arg2, arg3, value1, value2)
+  complex_select_regexp_validator(arg1, arg2, arg3, arg4, arg5)
 end
 
 Given(/^"(.*?)" page has opened$/) do |arg1|
@@ -240,8 +229,7 @@ Given /^"(.*?)" was entered in "(.*?)" elements set$/ do |arg1, arg2|
 end
 
 Given /^"(.*?)" was entered to "(.*?)" field$/ do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  feed_field(arg1, value)
+  feed_field(arg1, arg2)
 end
 
 Given /^"(.*?)" page was opened$/ do |arg1|
@@ -274,23 +262,19 @@ Given /^"(.*?)" element was pressed$/ do |arg1|
 end
 
 Given /^cell from column "(.*?)" with "(.*?)" equal to "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  complex_select(arg4, arg1, arg2, value)
+  complex_select(arg4, arg1, arg2, arg3)
 end
 
 Given /^cell from column "(.*?)" with "(.*?)" similar to "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  complex_select_regexp(arg4, arg1, arg2, value)
+  complex_select_regexp(arg4, arg1, arg2, arg3)
 end
 
 Given /^"(.*?)" cell with "(.*?)" similar to "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  complex_select_regexp(arg4, arg1, arg2, value)
+  complex_select_regexp(arg4, arg1, arg2, arg3)
 end
 
 Given /^"(.*?)" cell with "(.*?)" similar to "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  complex_select(arg4, arg1, arg2, value)
+  complex_select(arg4, arg1, arg2, arg3)
 end
 
 Given /^a cell from column "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2|

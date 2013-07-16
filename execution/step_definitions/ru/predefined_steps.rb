@@ -25,8 +25,7 @@ end
 end
 
 Допустим /^в поле "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  feed_field(arg1, value)
+  feed_field(arg1, arg2)
 end
 
 Допустим(/^значение поля "(.*?)" равно "(.*?)"$/) do |arg1, arg2|
@@ -104,13 +103,14 @@ end
 end
 
 Допустим(/^таблица "(.*?)" не содержит "(.*?)"$/) do |arg1, arg2|
+  value = (arg2.is_variable?)? recall(arg2) : arg2
   found = false
   page = PageObjectWrapper.current_page
   table = page.send arg1.to_label.to_sym
   raise "#{page.label_value} does not have table #{arg1}" unless table.present?
   table.rows.each{ |row| 
     row.cells.each{ |cell| 
-      found = true if cell.text =~ /#{arg2}/
+      found = true if cell.text =~ /#{ value }/
     }
   }
   found.should eq false
@@ -162,28 +162,23 @@ end
 end
 
 Допустим(/^"(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  run_action_validator(arg1, value)
+  run_action_validator(arg1, arg2)
 end
 
 Допустим(/^выполнение "(.*?)" с параметрами "(.*?)" вернет "(.*?)"$/) do |arg1, arg2, arg3|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  run_action_with_args_validator(arg1, arg2, value)
+  run_action_with_args_validator(arg1, arg2, arg3)
 end
 
 Допустим /^в таблице "(.*?)" выбрать ячейку колонки "(.*?)" с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  value = (arg4.is_variable?)? recall(arg4) : arg4
-  complex_select(arg1, arg2, arg3, value)
+  complex_select(arg1, arg2, arg3, arg4)
 end
 
 Допустим /^в таблице "(.*?)" выбрать ячейку с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  complex_select_regexp(arg1, arg2, arg2, value)
+  complex_select_regexp(arg1, arg2, arg2, arg3)
 end
 
 Допустим /^в таблице "(.*?)" выбрать ячейку с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  complex_select(arg1, arg2, arg2, value)
+  complex_select(arg1, arg2, arg2, arg3)
 end
 
 Допустим /^в таблице "(.*?)" выбрать элемент колонки "(.*?)"$/ do |arg1, arg2|
@@ -195,20 +190,15 @@ end
 end
 
 Допустим(/^в "(.*?)" строке колонки "(.*?)" таблицы "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4|
-  value = (arg4.is_variable?)? recall(arg4) : arg4
-  select_by_row_num_validator(arg1, arg2, arg3, value)
+  select_by_row_num_validator(arg1, arg2, arg3, arg4)
 end
 
 Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" равным "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
-  value1 = (arg4.is_variable?)? recall(arg4) : arg4
-  value2 = (arg5.is_variable?)? recall(arg5) : arg5
-  complex_select_validator(arg1, arg2, arg3, value1, value2)
+  complex_select_validator(arg1, arg2, arg3, arg4, arg5)
 end
 
 Допустим(/^в колонке "(.*?)" таблицы "(.*?)" с "(.*?)" похожим на "(.*?)" содержится "(.*?)"$/) do |arg1, arg2, arg3, arg4, arg5|
-  value1 = (arg4.is_variable?)? recall(arg4) : arg4
-  value2 = (arg5.is_variable?)? recall(arg5) : arg5
-  complex_select_regexp_validator(arg1, arg2, arg3, value1, value2)
+  complex_select_regexp_validator(arg1, arg2, arg3, arg4, arg5)
 end
 
 Допустим(/^открывается страница "(.*?)"$/) do |arg1|
@@ -240,8 +230,7 @@ end
 end
 
 Допустим /^в поле "(.*?)" введено "(.*?)"$/ do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  feed_field(arg1, value)
+  feed_field(arg1, arg2)
 end
 
 Допустим /^открыта страница "(.*?)"$/ do |arg1|
@@ -274,23 +263,19 @@ end
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка колонки "(.*?)" с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  value = (arg4.is_variable?)? recall(arg4) : arg4
-  complex_select(arg1, arg2, arg3, value)
+  complex_select(arg1, arg2, arg3, arg4)
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка колонки "(.*?)" с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  value = (arg4.is_variable?)? recall(arg4) : arg4
-  complex_select_regexp(arg1, arg2, arg3, value)
+  complex_select_regexp(arg1, arg2, arg3, arg4)
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" похожим на "(.*?)"$/ do |arg1, arg2, arg3|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  complex_select_regexp(arg1, arg2, arg2, value)
+  complex_select_regexp(arg1, arg2, arg2, arg3)
 end
 
 Допустим /^в таблице "(.*?)" была выбрана ячейка с "(.*?)" равным "(.*?)"$/ do |arg1, arg2, arg3|
-  value = (arg3.is_variable?)? recall(arg3) : arg3
-  complex_select(arg1, arg2, arg2, value)
+  complex_select(arg1, arg2, arg2, arg3)
 end
 
 Допустим /^в таблице "(.*?)" был выбран элемент колонки "(.*?)"$/ do |arg1, arg2|
