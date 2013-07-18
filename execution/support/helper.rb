@@ -152,35 +152,122 @@ module Cutara
       instance_variable_get("@#{var.to_label}")
     end
 
-    def pick_a_date date_array
-      fool_protection = 50
-      fool_index = 0
-      month={"0"=>"01", "1"=>"02", "2"=>"03", "3"=>"04", "4"=>"05", "5"=>"06", "6"=>"07", "7"=>"08", "8"=>"09", "9"=>"10", "10"=>"11", "11"=>"12"}
-      nex = (PageObjectWrapper.browser.a(:title, 'Next').present?)? PageObjectWrapper.browser.a(:title, 'Next') : PageObjectWrapper.browser.a(:title, 'Вперед')
-      pre = (PageObjectWrapper.browser.a(:title, 'Prev').present?)? PageObjectWrapper.browser.a(:title, 'Prev') : PageObjectWrapper.browser.a(:title, 'Назад')
-      datepicker = PageObjectWrapper.browser.div(:class=>'ui-datepicker-title')
-      while  datepicker.select(:class=>'ui-datepicker-year').value!= date_array[0] and fool_index < fool_protection
-        fool_index += 1
-        if datepicker.select(:class, 'ui-datepicker-year').value < date_array[0]
-          nex.click
-        elsif datepicker.select(:class, 'ui-datepicker-year').value > date_array[0]
-          pre.click
-        end
-      end
-      fool_index = 0
-      while fool_index < fool_protection
-        fool_index += 1
-        current_month=month[datepicker.select(:class, 'ui-datepicker-month').value]
-        break if current_month == date_array[1]
-        if current_month < date_array[1]
-          nex.click
-        elsif current_month > date_array[1]
-          pre.click
-        end
-      end
-      PageObjectWrapper.browser.table(:class, 'ui-datepicker-calendar').a(:text, date_array[2].to_i.to_s).click
-      PageObjectWrapper.browser.table(:class, 'ui-datepicker-calendar').wait_while_present
+    def result_remember_as var_name
+      res = PageObjectWrapper.current_result
+      remember_as(var_name, res)
     end
 
+    def field_value_is_equal_to field, value
+      value = (value.is_variable?)? recall(value) : value
+      PageObjectWrapper.current_page.send(field.to_label.to_sym).value.should eq value
+    end
+
+    def field_value_contains field, value
+      value = (value.is_variable?)? recall(value) : value
+      PageObjectWrapper.current_page.send(field.to_label.to_sym).value.should =~ /#{value}/
+    end
+
+    def variable_value_equals_to var, value
+      value = (value.is_variable?)? recall(value) : value
+      recall(var).should eq value
+    end
+
+    def variable_value_contains var, value
+      value = (value.is_variable?)? recall(value) : value
+      recall(var).should =~ /#{value}/
+    end
+
+    def run_on_each action
+      current_page = PageObjectWrapper.current_page
+      current_page.pagination_each{ |p|
+        p.send action.to_action
+      }
+    end
+
+    def run_on_first_N n, action
+      current_page = PageObjectWrapper.current_page
+      current_page.pagination_each( :limit => n.strip.to_i ){ |p|
+        p.send action.to_action
+      }
+    end
+
+    def open_subpage index
+      current_page = PageObjectWrapper.current_page
+      current_page.pagination_open index.strip.to_i
+    end
+
+    def table_has_string str, table
+      # table is a Cucumber::Ast::Table
+      raise "search criteria: #{table.raw.inspect} has more than 2 rows" if table.raw.length != 2
+      select_row(str, table.hashes.first)
+    end
+    
+    def table_doesnt_contain table, value
+      value = (value.is_variable?)? recall(value) : value
+      found = false
+      page = PageObjectWrapper.current_page
+      pow_table = page.send table.to_label.to_sym
+      raise "#{page.label_value} does not have table #{table}" unless pow_table.present?
+      pow_table.rows.each{ |row| 
+        row.cells.each{ |cell| 
+          found = true if cell.text =~ /#{ value }/
+        }
+      }
+      found.should eq false
+    end
+
+    def press_on_cell cell
+      res = PageObjectWrapper.current_result
+      case
+      when(res.is_a? Watir::TableCell)
+        if res.link.exists? 
+          res.link.click 
+        elsif res.checkbox.exists?
+          res.checkbox.set
+        elsif res.radio.exists?
+          res.radio.set
+        elsif res.button.exist?
+          res.button.click
+        else
+          res.click
+        end
+      when(res.is_a? Hash)
+        if res[cell.to_label.to_sym].link.exist? then 
+          res[cell.to_label.to_sym].link.click 
+        else 
+          res[cell.to_label.to_sym].click 
+        end
+      end
+    end
+
+    def cell_text_equal_to cell, value
+      res = PageObjectWrapper.current_result
+      value = (value.is_variable?)? recall(value) : value
+      case
+      when(res.is_a? Watir::TableCell)
+        res.text.should eq value
+      when(res.is_a? Hash)
+        res[cell.to_label.to_sym].text.should eq value
+      end
+    end
+
+    def cell_text_remember cell, var
+      res = PageObjectWrapper.current_result
+      case
+      when(res.is_a? Watir::TableCell)
+        instance_variable_set '@'+var.to_label, res.text
+      when(res.is_a? Hash)
+        instance_variable_set '@'+var.to_label, res[cell.to_label.to_sym].text
+      end
+    end
+
+    def current_page_is label
+      PageObjectWrapper.current_page? label.to_label.to_sym
+    end
+
+    def page_is_opened_in_new_tab label
+      PageObjectWrapper.browser.windows.last.use
+      PageObjectWrapper.current_page? label.to_label.to_sym
+    end
   end
 end

@@ -16,8 +16,7 @@ end
 end
 
 Допустим(/^результат запомнить как "(.*?)"$/) do |arg1|
-  res = PageObjectWrapper.current_result
-  remember_as(arg1, res)
+  result_remember_as arg1
 end
 
 Допустим /^на форме "(.*?)" ввести "(.*?)"$/ do |arg1, arg2|
@@ -29,23 +28,19 @@ end
 end
 
 Допустим(/^значение поля "(.*?)" равно "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should eq value
+  field_value_is_equal_to arg1, arg2
 end
 
 Допустим(/^значение поля "(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should =~ /#{value}/
+  field_value_contains arg1, arg2
 end
 
 Допустим(/^"(.*?)" равно "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  recall(arg1).should eq value
+  variable_value_equals_to arg1, arg2
 end
 
 Допустим(/^"(.*?)" содержит "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  recall(arg1).should =~ /#{value}/
+  variable_value_contains arg1, arg2
 end
 
 Допустим /^на странице ввести "(.*?)"$/ do |arg1|
@@ -61,22 +56,15 @@ end
 end
 
 Допустим /^на каждой странице пагинации выполнить "(.*?)"$/ do |arg1|
-  current_page = PageObjectWrapper.current_page
-  current_page.pagination_each{ |p|
-    p.send arg1.to_action
-  arg1.to_label.to_sym}
+  run_on_each arg1
 end
 
 Допустим /^на первых "(.*?)" страницах пагинации выполнить "(.*?)"$/ do |arg1, arg2|
-  current_page = PageObjectWrapper.current_page
-  current_page.pagination_each( :limit => arg1.strip.to_i ){ |p|
-    p.send arg2.to_action
-  }
+  run_on_first_N arg1, arg2
 end
 
 Допустим /^перейти на "(.*?)" страницу пагинации$/ do |arg1|
-  current_page = PageObjectWrapper.current_page
-  current_page.pagination_open arg1.strip.to_i
+  open_subpage arg1
 end
 
 Допустим /^нажать ссылку "(.*?)"$/ do |arg1|
@@ -97,23 +85,11 @@ end
 end
 
 Допустим(/^в таблице "(.*?)" есть строка:$/) do |arg1, table|
-  # table is a Cucumber::Ast::Table
-  raise "search criteria: #{table.raw.inspect} has more than 2 rows" if table.raw.length != 2
-  select_row(arg1, table.hashes.first)
+  table_has_string arg1, table
 end
 
 Допустим(/^таблица "(.*?)" не содержит "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  found = false
-  page = PageObjectWrapper.current_page
-  table = page.send arg1.to_label.to_sym
-  raise "#{page.label_value} does not have table #{arg1}" unless table.present?
-  table.rows.each{ |row| 
-    row.cells.each{ |cell| 
-      found = true if cell.text =~ /#{ value }/
-    }
-  }
-  found.should eq false
+  table_doesnt_contain arg1, arg2
 end
 
 Допустим(/^в таблице "(.*?)" есть строки:$/) do |arg1, table|
@@ -121,44 +97,15 @@ end
 end
 
 Допустим(/^нажать на ячейку "(.*?)"$/) do |arg1|
-  res = PageObjectWrapper.current_result
-  case
-  when(res.is_a? Watir::TableCell)
-    if res.link.exists? 
-      res.link.click 
-    elsif res.checkbox.exists?
-      res.checkbox.set
-    elsif res.radio.exists?
-      res.radio.set
-    elsif res.button.exist?
-      res.button.click
-    else
-      res.click
-    end
-  when(res.is_a? Hash)
-    if res[arg1.to_label.to_sym].link.exist? then res[arg1.to_label.to_sym].link.click else res[arg1.to_label.to_sym].click end
-  end
+  press_on_cell arg1
 end
 
 Допустим(/^текст ячейки "(.*?)" равен "(.*?)"$/) do |arg1, arg2|
-  res = PageObjectWrapper.current_result
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  case
-  when(res.is_a? Watir::TableCell)
-    res.text.should eq value
-  when(res.is_a? Hash)
-    res[arg1.to_label.to_sym].text.should eq value
-  end
+  cell_text_equal_to arg1, arg2
 end
 
 Допустим(/^текст ячейки "(.*?)" запомнить как "(.*?)"$/) do |arg1, arg2|
-  res = PageObjectWrapper.current_result
-  case
-  when(res.is_a? Watir::TableCell)
-    instance_variable_set '@'+arg2.to_label, res.text
-  when(res.is_a? Hash)
-    instance_variable_set '@'+arg2.to_label, res[arg1.to_label.to_sym].text
-  end
+  cell_text_remember arg1, arg2
 end
 
 Допустим(/^"(.*?)" вернет "(.*?)"$/) do |arg1, arg2|
@@ -202,11 +149,11 @@ end
 end
 
 Допустим(/^открывается страница "(.*?)"$/) do |arg1|
-  PageObjectWrapper.current_page? arg1.to_label.to_sym
+  current_page_is arg1
 end
 
 Допустим(/^открывается диалог "(.*?)"$/) do |arg1|
-  PageObjectWrapper.current_page? arg1.to_label.to_sym
+  current_page_is arg1
 end
 
 Допустим /^выполнено "(.*?)"$/ do |arg1|
@@ -246,8 +193,7 @@ end
 end
 
 Допустим /^открыта "(.*?)" страница пагинации$/ do |arg1|
-  current_page = PageObjectWrapper.current_page
-  current_page.pagination_open arg1.strip.to_i
+  open_subpage arg1
 end
 
 Допустим /^была нажата ссылка "(.*?)"$/ do |arg1|
@@ -287,22 +233,13 @@ end
 end
 
 Допустим(/^в новой вкладке открывается страница "(.*?)"$/) do |arg1|
-  PageObjectWrapper.browser.windows.last.use
-  PageObjectWrapper.current_page? arg1.to_label.to_sym
+  page_is_opened_in_new_tab arg1
 end
 
 Допустим(/^подождать "(.*?)" минут\(ы\)$/) do |arg1|
   sleep arg1.to_f*60
 end
 
-Допустим(/^подтвердить действие$/) do
-  PageObjectWrapper.browser.alert.ok
-end
-
-Допустим(/^отменить действие$/) do
-  PageObjectWrapper.browser.alert.close
-end
-
 Допустим(/^текущая страница - "(.*?)"$/) do |arg1|
-  (PageObjectWrapper.current_page? arg1.to_label.to_sym).should eq true
+  current_page_is arg1
 end

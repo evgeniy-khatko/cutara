@@ -16,8 +16,7 @@ Given(/^validate "(.*?)"$/) do |arg1|
 end
 
 Given(/^remember result as "(.*?)"$/) do |arg1|
-  res = PageObjectWrapper.current_result
-  remember_as(arg1, res)
+  result_remember_as arg1
 end
 
 Given /^fill "(.*?)" form with "(.*?)"$/ do |arg1, arg2|
@@ -29,23 +28,19 @@ Given /^fill "(.*?)" field with "(.*?)"$/ do |arg1, arg2|
 end
 
 Given(/^"(.*?)" field value equals to "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should eq value
+  field_value_is_equal_to arg1, arg2
 end
 
 Given(/^"(.*?)" field value contains "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  PageObjectWrapper.current_page.send(arg1.to_label.to_sym).value.should =~ /#{value}/
+  field_value_contains arg1, arg2
 end
 
 Given(/^"(.*?)" equals "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  recall(arg1).should eq value
+  variable_value_equals_to arg1, arg2
 end
 
 Given(/^"(.*?)" contains "(.*?)"$/) do |arg1, arg2|
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  recall(arg1).should =~ /#{value}/
+  variable_value_contains arg1, arg2
 end
 
 Given /^fill current page with "(.*?)"$/ do |arg1|
@@ -61,22 +56,15 @@ Given /^"(.*?)" page open with parameters "(.*?)"$/ do |arg1, arg2|
 end
 
 Given /^run "(.*?)" on each subpage$/ do |arg1|
-  current_page = PageObjectWrapper.current_page
-  current_page.pagination_each{ |p|
-    p.send arg1.to_action
-  arg1.to_label.to_sym}
+  run_on_each arg1
 end
 
 Given /^run "(.*?)" on the first "(.*?)" subpages$/ do |arg1, arg2|
-  current_page = PageObjectWrapper.current_page
-  current_page.pagination_each( :limit => arg2.strip.to_i ){ |p|
-    p.send arg1.to_action
-  }
+  run_on_first_N arg1, arg2
 end
 
 Given /^open "(.*?)" subpage$/ do |arg1|
-  current_page = PageObjectWrapper.current_page
-  current_page.pagination_open arg1.strip.to_i
+  open_subpage arg1
 end
 
 Given /^click "(.*?)" link$/ do |arg1|
@@ -97,22 +85,11 @@ Given(/^open new browser window$/) do
 end
 
 Given(/^table "(.*?)" contains row:$/) do |arg1, table|
-  # table is a Cucumber::Ast::Table
-  raise "search criteria: #{table.raw.inspect} has more than 2 rows" if table.raw.length != 2
-  select_row(arg1, table.hashes.first)
+  table_has_string arg1, table
 end
 
 Given(/^table "(.*?)" does not contain "(.*?)"$/) do |arg1, arg2|
-  found = false
-  page = PageObjectWrapper.current_page
-  table = page.send arg1.to_label.to_sym
-  raise "#{page.label_value} does not have table #{arg1}" unless table.present?
-  table.rows.each{ |row| 
-    row.cells.each{ |cell| 
-      found = true if cell.text =~ /#{arg2}/
-    }
-  }
-  found.should eq false
+  table_doesnt_contain arg1, arg2
 end
 
 Given(/^table "(.*?)" contains rows:$/) do |arg1, table|
@@ -120,44 +97,15 @@ Given(/^table "(.*?)" contains rows:$/) do |arg1, table|
 end
 
 Given(/^click on cell "(.*?)"$/) do |arg1|
-  res = PageObjectWrapper.current_result
-  case
-  when(res.is_a? Watir::TableCell)
-    if res.link.exists? 
-      res.link.click 
-    elsif res.checkbox.exists?
-      res.checkbox.set
-    elsif res.radio.exists?
-      res.radio.set
-    elsif res.button.exist?
-      res.button.click
-    else
-      res.click
-    end
-  when(res.is_a? Hash)
-    if res[arg1.to_label.to_sym].link.exist? then res[arg1.to_label.to_sym].link.click else res[arg1.to_label.to_sym].click end
-  end
+  press_on_cell arg1
 end
 
 Given(/^cell "(.*?)" text equels to "(.*?)"$/) do |arg1, arg2|
-  res = PageObjectWrapper.current_result
-  value = (arg2.is_variable?)? recall(arg2) : arg2
-  case
-  when(res.is_a? Watir::TableCell)
-    res.text.should eq value
-  when(res.is_a? Hash)
-    res[arg1.to_label.to_sym].text.should eq value
-  end
+  cell_text_equal_to arg1, arg2
 end
 
 Given(/^cell "(.*?)" text remember as "(.*?)"$/) do |arg1, arg2|
-  res = PageObjectWrapper.current_result
-  case
-  when(res.is_a? Watir::TableCell)
-    instance_variable_set '@'+arg2.to_label, res.text
-  when(res.is_a? Hash)
-    instance_variable_set '@'+arg2.to_label, res[arg1.to_label.to_sym].text
-  end
+  cell_text_remember arg1, arg2
 end
 
 Given(/^"(.*?)" returns "(.*?)"$/) do |arg1, arg2|
@@ -201,11 +149,11 @@ Given(/^column "(.*?)" of table "(.*?)" where "(.*?)" similar to "(.*?)" contain
 end
 
 Given(/^"(.*?)" page has opened$/) do |arg1|
-  PageObjectWrapper.current_page? arg1.to_label.to_sym
+  current_page_is arg1
 end
 
 Given(/^"(.*?)" dialog has appeared$/) do |arg1|
-  PageObjectWrapper.current_page? arg1.to_label.to_sym
+  current_page_is arg1
 end
 
 Given /^"(.*?)" was run$/ do |arg1|
@@ -245,8 +193,7 @@ Given /^"(.*?)" page was opened with parameters "(.*?)"$/ do |arg1, arg2|
 end
 
 Given /^"(.*?)" subpage was opened$/ do |arg1|
-  current_page = PageObjectWrapper.current_page
-  current_page.pagination_open arg1.strip.to_i
+  open_subpage arg1
 end
 
 Given /^"(.*?)" link was clicked$/ do |arg1|
@@ -286,22 +233,13 @@ Given /^a cell from column "(.*?)" and row "(.*?)" was chosen from table "(.*?)"
 end
 
 Given(/^"(.*?)" page is being opened in a new tab$/) do |arg1|
-  PageObjectWrapper.browser.windows.last.use
-  PageObjectWrapper.current_page? arg1.to_label.to_sym
+  page_is_opened_in_new_tab arg1
 end
 
 Given(/^wait for "(.*?)" min$/) do |arg1|
   sleep arg1.to_f*60
 end
 
-Given(/^confirm action$/) do
-  PageObjectWrapper.browser.alert.ok
-end
-
-Given(/^dismiss action$/) do
-  PageObjectWrapper.browser.alert.close
-end
-
 Given(/^current page is "(.*?)"$/) do |arg1|
-  (PageObjectWrapper.current_page? arg1.to_label.to_sym).should eq true
+  current_page_is arg1
 end
