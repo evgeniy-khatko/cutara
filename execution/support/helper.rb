@@ -44,7 +44,7 @@ module Cutara
     end
 
     def feed_field(field_name, value=nil)
-      recall(value) if value.is_variable?
+      value = recall(value) if value.is_variable?
       PageObjectWrapper.current_page.send field_name.to_input, value
     end
 
@@ -74,13 +74,13 @@ module Cutara
     end
 
     def complex_select(t_name, find_in, find_by, value)
-      recall(value) if value.is_variable?
+      value = recall(value) if value.is_variable?
       current_page = PageObjectWrapper.current_page
       current_page.send t_name.to_select, find_in.to_label.to_sym, { find_by.to_label.to_sym => value }
     end
 
     def complex_select_regexp(t_name, find_in, find_by, value)
-      recall(value) if value.is_variable?
+      value = recall(value) if value.is_variable?
       current_page = PageObjectWrapper.current_page
       current_page.send t_name.to_select, find_in.to_label.to_sym, { find_by.to_label.to_sym => Regexp.new(value) }
     end

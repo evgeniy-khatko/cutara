@@ -100,7 +100,7 @@ Given(/^click on cell "(.*?)"$/) do |arg1|
   press_on_cell arg1
 end
 
-Given(/^cell "(.*?)" text equels to "(.*?)"$/) do |arg1, arg2|
+Given(/^cell "(.*?)" text equals to "(.*?)"$/) do |arg1, arg2|
   cell_text_equal_to arg1, arg2
 end
 
@@ -132,8 +132,8 @@ Given /^choose element from column "(.*?)" from table "(.*?)"$/ do |arg1, arg2|
   select_by_col_name(arg2, arg1)
 end
 
-Given /^choose element from column "(.*?)" and row "(.*?)" from table "(.*?)"$/ do |arg1, arg2, arg3|
-  select_by_row_num(arg3, arg1, arg2)
+Given /^choose element from row "(.*?)" and column "(.*?)" from table "(.*?)"$/ do |arg1, arg2, arg3|
+  select_by_row_num(arg3, arg2, arg1)
 end
 
 Given(/^row "(.*?)" column "(.*?)" of table "(.*?)" contains "(.*?)"$/) do |arg1, arg2, arg3, arg4|
@@ -216,12 +216,12 @@ Given /^cell from column "(.*?)" with "(.*?)" similar to "(.*?)" was chosen from
   complex_select_regexp(arg4, arg1, arg2, arg3)
 end
 
-Given /^"(.*?)" cell with "(.*?)" similar to "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  complex_select_regexp(arg4, arg1, arg2, arg3)
+Given /^"(.*?)" cell with "(.*?)" equal to "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2, arg3, arg4|
+  complex_select(arg4, arg1, arg2, arg3)
 end
 
 Given /^"(.*?)" cell with "(.*?)" similar to "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2, arg3, arg4|
-  complex_select(arg4, arg1, arg2, arg3)
+  complex_select_regexp(arg4, arg1, arg2, arg3)
 end
 
 Given /^a cell from column "(.*?)" was chosen from table "(.*?)"$/ do |arg1, arg2|
