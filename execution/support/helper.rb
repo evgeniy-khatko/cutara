@@ -140,16 +140,18 @@ module Cutara
     def remember_as(var, res)
       case
       when(res.is_a? Watir::TableCell)
-        instance_variable_set("@#{var.to_label}", res.text)
+        eval "$#{var.to_label} = #{res.text}"
       when(res.respond_to? :value)
-        instance_variable_set("@#{var.to_label}", res.value)
+        eval "$#{var.to_label} = #{res.value}"
       else
-        instance_variable_set("@#{var.to_label}", res.to_s)
+        eval "$#{var.to_label} = #{res.to_s}"
       end
     end
 
     def recall(var)
-      instance_variable_get("@#{var.to_label}")
+      val = eval "$#{ var.to_label }"
+      raise "Cutara::Helper: Cant recall value from variable #{var}. Was it defined?" if val.nil?
+      val
     end
 
     def result_remember_as var_name

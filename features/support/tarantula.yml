@@ -1,0 +1,10 @@
+language: en # supported: [en,ru], please do pull request for other langs
+username: tester
+password: tester
+server: http://tarantula.at-consulting.ru
+project: Cutara
+#language: ru # supported: [en,ru], please do pull request for other langs
+#username: admin
+#password: admin
+#server: http://localhost:3000
+#project: Cutara
