@@ -7,7 +7,7 @@ module Cutara
 
     def start_browser
       PageObjectWrapper.domain = 'http://172.21.225.230:17080/kb-web-ui/'
-      PageObjectWrapper.use_browser Watir::Browser.new :chrome
+      PageObjectWrapper.use_browser Watir::Browser.new :chrome 
       PageObjectWrapper.browser.driver.manage.window.maximize
     end
 
@@ -222,23 +222,23 @@ module Cutara
       res = PageObjectWrapper.current_result
       case
       when(res.is_a? Watir::TableCell)
-        if res.link.exists? 
-          res.link.click 
-        elsif res.checkbox.exists?
-          res.checkbox.set
-        elsif res.radio.exists?
-          res.radio.set
-        elsif res.button.exist?
-          res.button.click
-        else
-          res.click
-        end
+        press_inside_cell( res )
       when(res.is_a? Hash)
-        if res[cell.to_label.to_sym].link.exist? then 
-          res[cell.to_label.to_sym].link.click 
-        else 
-          res[cell.to_label.to_sym].click 
-        end
+        press_inside_cell( res[cell.to_label.to_sym] )
+      end
+    end
+
+    def press_inside_cell( cell )
+      if cell.link.exists? 
+        cell.link.click 
+      elsif cell.checkbox.exists?
+        cell.checkbox.when_present.set
+      elsif cell.radio.exists?
+        cell.radio.when_present.set
+      elsif cell.button.exist?
+        cell.button.when_present.click
+      else
+        cell.when_present.click
       end
     end
 
