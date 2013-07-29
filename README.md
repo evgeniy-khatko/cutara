@@ -18,9 +18,7 @@ Preconditions
 4. bundle install
 5. bundle exec rake cutara:gui
 6. navigate to http://localhost:8000
-7. refer to videos
-
-(http://qamind.ru/?page_id=436&lang=en)
+7. refer to videos (http://qamind.ru/?page_id=436&lang=en)
 
 ## Installation
 
