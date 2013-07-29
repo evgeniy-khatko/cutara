@@ -1,6 +1,26 @@
 # Cutara
 
-http://qamind.ru/?page_id=436&lang=en
+Preconditions
+- Ruby installed
+- gem install bundler
+- Git installed
+- Tarantula service is available through http://some/link
+
+1. mkdir test; cd test
+2. create file Gemfile with following content:
+
+        gem 'rake'
+        gem 'cutara', :git => 'https://github.com/evgeniy-khatko/cutara.git'
+
+3. create file Rakefile with following content:
+        require 'cutara/tasks'
+
+4. bundle install
+5. bundle exec rake cutara:gui
+6. navigate to http://localhost:8000
+7. refer to videos
+
+(http://qamind.ru/?page_id=436&lang=en)
 
 ## Installation
 
