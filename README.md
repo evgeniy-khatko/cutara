@@ -1,6 +1,6 @@
 # Cutara
 
-TODO: Write a gem description
+http://qamind.ru/?page_id=436&lang=en
 
 ## Installation
 
