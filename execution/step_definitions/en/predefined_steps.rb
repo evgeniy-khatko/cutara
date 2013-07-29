@@ -177,7 +177,7 @@ Given /^"(.*?)" was entered in "(.*?)" elements set$/ do |arg1, arg2|
 end
 
 Given /^"(.*?)" was entered to "(.*?)" field$/ do |arg1, arg2|
-  feed_field(arg1, arg2)
+  feed_field(arg2, arg1)
 end
 
 Given /^"(.*?)" page was opened$/ do |arg1|
