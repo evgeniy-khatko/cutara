@@ -189,15 +189,15 @@ Given /^"(.*?)" was entered on the current page$/ do |arg1|
 end
 
 Given /^"(.*?)" was entered in "(.*?)" form$/ do |arg1, arg2|
-  APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
+  APP.add_eset arg2.to_label.to_sym, arg2.to_label.to_sym
 end
 
 Given /^"(.*?)" was entered in "(.*?)" elements set$/ do |arg1, arg2|
-  APP.add_eset arg1.to_label.to_sym, arg2.to_label.to_sym
+  APP.add_eset arg2.to_label.to_sym, arg2.to_label.to_sym
 end
 
 Given /^"(.*?)" was entered to "(.*?)" field$/ do |arg1, arg2|
-  APP.add_input arg1.to_label.to_sym
+  APP.add_input arg2.to_label.to_sym
 end
 
 Given /^"(.*?)" page was opened$/ do |arg1|
