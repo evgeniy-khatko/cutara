@@ -140,16 +140,16 @@ module Cutara
     def remember_as(var, res)
       case
       when(res.is_a? Watir::TableCell)
-        eval "$#{var.to_label} = #{res.text}"
+        eval "$#{var.to_label} = \"#{res.text}\""
       when(res.respond_to? :value)
-        eval "$#{var.to_label} = #{res.value}"
+        eval "$#{var.to_label} = \"#{res.value}\""
       else
-        eval "$#{var.to_label} = #{res.to_s}"
+        eval "$#{var.to_label} = \"#{res.to_s}\""
       end
     end
 
     def recall(var)
-      val = eval "$#{ var.to_label }"
+      val = eval "$#{ var.to_label }.to_s"
       raise "Cutara::Helper: Cant recall value from variable #{var}. Was it defined?" if val.nil?
       val
     end
@@ -257,9 +257,9 @@ module Cutara
       res = PageObjectWrapper.current_result
       case
       when(res.is_a? Watir::TableCell)
-        instance_variable_set '@'+var.to_label, res.text
+        remember_as var, res.text
       when(res.is_a? Hash)
-        instance_variable_set '@'+var.to_label, res[cell.to_label.to_sym].text
+        remember_as var, res[cell.to_label.to_sym].text
       end
     end
 
@@ -270,6 +270,10 @@ module Cutara
     def page_is_opened_in_new_tab label
       PageObjectWrapper.browser.windows.last.use
       PageObjectWrapper.current_page? label.to_label.to_sym
+    end
+
+    def take_shot
+      PageObjectWrapper.browser.screenshot.save "#{Cutara::TMP}/#{ PageObjectWrapper.current_page.label_value.to_s }.png"
     end
   end
 end

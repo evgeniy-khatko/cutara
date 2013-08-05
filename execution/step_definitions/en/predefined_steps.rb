@@ -243,3 +243,7 @@ end
 Given(/^current page is "(.*?)"$/) do |arg1|
   current_page_is arg1
 end
+
+Given(/^validate page usability$/) do
+  take_shot
+end
