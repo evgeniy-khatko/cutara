@@ -4,6 +4,7 @@ module Cutara
   ROOT = Dir.pwd + "/features"
   PAGES = ROOT + "/pages"
   STEPS = ROOT + "/step_definitions"
+  SCRN = ROOT + "/screenshots"
   SUPPORT = ROOT + "/support"
   EXECUTION = File.dirname(__FILE__)+"/../execution/"
   GENERATION = File.dirname(__FILE__)+"/../generation/"
