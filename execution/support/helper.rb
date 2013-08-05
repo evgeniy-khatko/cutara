@@ -273,7 +273,7 @@ module Cutara
     end
 
     def take_shot
-      PageObjectWrapper.browser.screenshot.save "#{Cutara::TMP}/#{ PageObjectWrapper.current_page.label_value.to_s }.png"
+      PageObjectWrapper.browser.screenshot.save "#{Cutara::SCRN}/#{ PageObjectWrapper.current_page.label_value.to_s }.png"
     end
   end
 end
