@@ -1,7 +1,7 @@
 # Cutara
 This gem is a tool, which helps to automate WEB applications testing.
-It converts ![tarantula](https://github.com/evgeniy-khatko/tarantula) test cases to ![cucumber](http://cukes.info) scenarios.
-It has some set of predefined sentences similar to ![frank](https://github.com/moredip/Frank) tool but in WEB domain.
+It converts [tarantula](https://github.com/evgeniy-khatko/tarantula) test cases to [cucumber](http://cukes.info) scenarios.
+It has some set of predefined sentences similar to [frank](https://github.com/moredip/Frank) tool but in WEB domain.
 It has WEB GUI.
 
 ## Usage
