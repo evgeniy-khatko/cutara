@@ -1,4 +1,10 @@
 # Cutara
+This gem is a tool, which helps to automate WEB applications testing.
+It converts ![tarantula](https://github.com/evgeniy-khatko/tarantula) test cases to ![cucumber](http://cukes.info) scenarios.
+It has some set of predefined sentences similar to ![frank](https://github.com/moredip/Frank) tool but in WEB domain.
+It has WEB GUI.
+
+## Usage
 
 Preconditions
 - Ruby installed
@@ -19,24 +25,6 @@ Preconditions
 5. bundle exec rake cutara:gui
 6. navigate to http://localhost:8000
 7. refer to videos (http://qamind.ru/?page_id=436&lang=en)
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'cutara'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install cutara
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Contributing
 
