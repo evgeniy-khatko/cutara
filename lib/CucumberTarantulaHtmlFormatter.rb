@@ -30,20 +30,13 @@ module Cucumber
         @scenario_undefined = false
         @scenario_updated = false
         @feature_result = 'PASSED'
+        @start_time = 0
         Cutara::TarantulaUpdater.config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
         #############################################
       end
 
       def after_features(features)
-        #############################################
-        response = 'Tarantula response undefined'
-        begin
-          response = Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration), @feature_result) if features && features.duration
-        rescue Exception => e
-          response = e.message
-        end
         @builder << "<p><i>#{response}</i></p>"
-        #############################################
         print_stats(features)
         @builder << '</div>'
         @builder << '</body>'
@@ -55,6 +48,7 @@ module Cucumber
         @builder << '<div class="feature">'
         #############################################
         @scenario_index = 0
+        @start_time = Time.now.to_i
         #############################################
       end
 
@@ -146,6 +140,7 @@ module Cucumber
             message += " !INSIDE BACKGROUND!"
           end
           response = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, @scenario_index, "FAILED", message)
+          response += Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, Time.now.to_i - @start_time, @feature_result)
           @feature_result = "FAILED"
           @builder << "<p><i>#{response}</i></p>"
           #############################################
@@ -181,7 +176,9 @@ module Cucumber
         response = 'Tarantula response undefined'
         begin
           response = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, position, result, message)
+          response += Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, Time.now.to_i - @start_time, @feature_result)
         rescue Exception => e
+          response += Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, Time.now.to_i - @start_time, @feature_result)
           response = e.message
         end
         @builder << "<p><i>#{response}</i></p>"

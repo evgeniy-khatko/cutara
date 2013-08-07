@@ -24,6 +24,7 @@ module Cucumber
         @scenario_undefined = false
         @scenario_updated = false
         @feature_result = 'PASSED'
+        @start_time = 0
         Cutara::TarantulaUpdater.config = YAML.load(File.open(Cutara::SUPPORT+"/tarantula.yml"))
         #############################################
       end
@@ -31,15 +32,12 @@ module Cucumber
       def after_features(features)
         print_summary(features) unless @options[:autoformat]
         @io.puts(format_duration_simple(features.duration)) if features && features.duration
-        #############################################
-        resp = Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, format_duration_simple(features.duration),@feature_result) if features && features.duration
-        @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
-        #############################################
       end
 
       def before_feature(feature)
         #############################################
         @scenario_index = 0
+        @start_time = Time.now.to_i
         #############################################
         @exceptions = []
         @indent = 0
@@ -105,6 +103,7 @@ module Cucumber
             message += " !INSIDE BACKGROUND!"
           end
           resp = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, @scenario_index, "FAILED", message)
+          resp += Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, Time.now.to_i - @start_time, @feature_result)
           @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
           #############################################
           print_exception(table_row.exception, table_row.status, @indent)
@@ -133,6 +132,7 @@ module Cucumber
           position = 1
         end
         resp = Cutara::TarantulaUpdater.update_testcase_step(ENV["project"], ENV["execution"], @feature_name, position, result, message)
+        resp += Cutara::TarantulaUpdater.update_testcase_results(ENV["project"], ENV["execution"], @feature_name, Time.now.to_i - @start_time, @feature_result)
         @io.puts ">>>>>>>>>>>>>>>" + resp.to_s
         #############################################
       end
