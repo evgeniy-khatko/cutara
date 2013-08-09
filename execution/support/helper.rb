@@ -6,7 +6,6 @@ module Cutara
     end
 
     def start_browser
-      PageObjectWrapper.domain = 'http://172.21.225.230:17080/kb-web-ui/'
       PageObjectWrapper.use_browser Watir::Browser.new :chrome 
       PageObjectWrapper.browser.driver.manage.window.maximize
     end
@@ -64,7 +63,8 @@ module Cutara
       }
       current_page = PageObjectWrapper.current_page
       row = current_page.send t_name.to_select_row, sanitized_query
-      raise "table \"#{t_name}\" does not have row with parameters #{sanitized_query.inspect}" if row.nil?
+      raise "table \"#{t_name}\" does not have row with parameters #{sanitized_query.inspect}.\
+      Available rows: #{ (current_page.send t_name.to_label).hashes.inspect }" if row.nil?
     end
 
     def select_rows(t_name, queries)
@@ -231,10 +231,12 @@ module Cutara
     def press_inside_cell( cell )
       if cell.link.exists? 
         cell.link.click 
-      elsif cell.checkbox.exists?
-        cell.checkbox.when_present.set
+      elsif cell.checkbox.exists? && cell.checkbox.set?
+        cell.checkbox.set
+      elsif cell.checkbox.exists? && cell.checkbox.set?
+        cell.checkbox.set(false)
       elsif cell.radio.exists?
-        cell.radio.when_present.set
+        cell.radio.set
       elsif cell.button.exist?
         cell.button.when_present.click
       else
