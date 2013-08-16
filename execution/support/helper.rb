@@ -149,6 +149,7 @@ module Cutara
     end
 
     def recall(var)
+      return var unless var.is_variable?
       val = eval "$#{ var.to_label }.to_s"
       raise "Cutara::Helper: Cant recall value from variable #{var}. Was it defined?" if val.nil?
       val
