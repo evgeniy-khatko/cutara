@@ -4,10 +4,10 @@ require 'padrino-helpers'
 require 'erb'
 require 'cutara'
 require 'json/pure'
+require 'yaml'
 if RUBY_PLATFORM=='i386-mingw32'
 	require 'win32/process'
 	require 'win32/open3'
-  require 'yaml'
 else
 	require 'open3'
 	include Open3
